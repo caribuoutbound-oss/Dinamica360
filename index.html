@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ranking de Excelencia | Dashboard Ejecutivo</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top, #0f172a, #020617 70%);
+      color: #e5e7eb;
+    }
+
+    /* Fondo animado con gradiente */
+    .bg-animated {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(168, 85, 247, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0e27 0%, #050816 100%);
+      animation: gradientShift 15s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    /* Glassmorphism avanzado */
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 
+        0 8px 32px 0 rgba(0, 0, 0, 0.37),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(24px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    /* Medallas con gradientes premium */
+    .medal-gold {
+      background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+      color: #78350f;
+      box-shadow: 
+        0 0 40px rgba(255, 215, 0, 0.6),
+        0 10px 30px rgba(255, 215, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    .medal-silver {
+      background: linear-gradient(135deg, #e8e8e8 0%, #ffffff 50%, #d0d0d0 100%);
+      color: #1e293b;
+      box-shadow: 
+        0 0 30px rgba(229, 231, 235, 0.5),
+        0 10px 25px rgba(203, 213, 225, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .medal-bronze {
+      background: linear-gradient(135deg, #cd7f32 0%, #f4a460 50%, #cd7f32 100%);
+      color: #451a03;
+      box-shadow: 
+        0 0 30px rgba(205, 127, 50, 0.5),
+        0 10px 25px rgba(205, 127, 50, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    /* Animaciones flotantes */
+    .float-slow {
+      animation: floatSlow 6s ease-in-out infinite;
+    }
+
+    .float-medium {
+      animation: floatMedium 5s ease-in-out infinite;
+    }
+
+    .float-fast {
+      animation: floatFast 4s ease-in-out infinite;
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+    }
+
+    @keyframes floatMedium {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes floatFast {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.02); }
+    }
+
+    /* Barras de progreso con gradiente */
+    .progress-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%);
+      box-shadow: 0 2px 10px rgba(59, 130, 246, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    /* Efecto hover para cards */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card-hover:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 20px 60px rgba(59, 130, 246, 0.3),
+        0 0 40px rgba(168, 85, 247, 0.2);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Pulso para el campeón */
+    .pulse-glow {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { 
+        box-shadow: 
+          0 0 40px rgba(255, 215, 0, 0.6),
+          0 10px 30px rgba(255, 215, 0, 0.3);
+      }
+      50% { 
+        box-shadow: 
+          0 0 60px rgba(255, 215, 0, 0.8),
+          0 15px 45px rgba(255, 215, 0, 0.5);
+      }
+    }
+
+    /* KPI Cards */
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .kpi-card:hover::before {
+      left: 100%;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Fade in animado */
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .fade-in-1 { animation-delay: 0.1s; }
+    .fade-in-2 { animation-delay: 0.2s; }
+    .fade-in-3 { animation-delay: 0.3s; }
+    .fade-in-4 { animation-delay: 0.4s; }
+    .fade-in-5 { animation-delay: 0.5s; }
+
+    /* Iconos con brillo */
+    .icon-glow {
+      filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    /* Números con gradiente */
+    .gradient-text {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Ribbon para el campeón */
+    .champion-ribbon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: linear-gradient(135deg, #ffd700, #ffed4e);
+      color: #78350f;
+      padding: 8px 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      transform: rotate(12deg);
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      border-radius: 6px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .tv-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-animated"></div>
+
+  <!-- Contenedor principal -->
+  <div style="position: relative; z-index: 1; min-height: 100vh;">
+    
+    <!-- Vista Desktop/Tablet -->
+    <div id="desktop-view" class="container mx-auto px-6 py-10 max-w-7xl">
+      
+      <!-- Header -->
+      <header class="text-center mb-12 fade-in">
+        <div class="inline-block mb-4">
+          <div class="flex items-center gap-3 glass-strong rounded-full px-8 py-3">
+            <i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i>
+            <span class="text-sm font-semibold text-slate-300 uppercase tracking-wider">Q4 2025</span>
+          </div>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-gray-900">Ranking de Excelencia</h1>
+        <p class="mt-2 text-gray-600">Reconocimiento a los mejores colaboradores del ciclo</p>
+      </header>
+
+      <!-- Podio Premium -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end mb-12" id="podium-section">
+        <!-- Placeholder de carga -->
+        <div class="col-span-3 text-center py-12 text-slate-500">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500 mb-4"></div>
+          <p>Cargando podio...</p>
+        </div>
+      </section>
+
+      <!-- Grid de KPIs + Ranking -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Ranking Top 10 -->
+        <div class="lg:col-span-2 glass-strong rounded-3xl p-8 card-hover fade-in-4" id="ranking-section">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="text-2xl font-bold flex items-center gap-3">
+              <i data-lucide="bar-chart-3" class="w-6 h-6 text-blue-400 icon-glow"></i>
+              Top 10 General
+            </h3>
+            <span class="text-slate-400 text-sm" id="total-participants">10 participantes</span>
+          </div>
+
+          <div class="space-y-5" id="ranking-list">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+
+        <!-- KPIs Ejecutivos -->
+        <div class="space-y-6 fade-in-5" id="kpi-section">
+          <!-- Se llenará dinámicamente -->
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <footer class="text-center mt-12 text-slate-500 text-sm fade-in">
+        <p>Actualizado: <span id="last-updated">Cargando...</span> • Sistema de Gestión de Desempeño</p>
+      </footer>
+
+    </div>
+
+  </div>
+
+  <script>
+    // === CONFIGURACIÓN ===
+    const API_URL = "https://script.google.com/macros/s/AKfycbz6ja1O0AwvYBVfIn4ik9Q5VBp_Lj7P1qWMG9xIFuFSiCe8RDFrl7fqYH8IgDGCXys/exec";
+
+    // === FUNCIONES ===
+    async function fetchRanking() {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Error al conectar con la fuente de datos");
+        const data = await res.json();
+        if (!Array.isArray(data)) throw new Error("Formato de datos inválido");
+
+        // Agrupar por NOMBRE_COMPLETO y sumar Puntos_Total
+        const grouped = {};
+        for (const row of data) {
+          const name = row.NOMBRE_COMPLETO || "Sin nombre";
+          const points = parseFloat(row.Puntos_Total) || 0;
+
+          if (!grouped[name]) {
+            grouped[name] = { name, points: 0 };
+          }
+          grouped[name].points += points;
+        }
+
+        // Convertir a array y ordenar de mayor a menor
+        const ranking = Object.values(grouped).sort((a, b) => b.points - a.points).slice(0, 10);
+
+        return ranking;
+      } catch (err) {
+        console.error(err);
+        return [];
+      }
+    }
+
+    function renderPodium(ranking) {
+      if (!ranking.length) {
+        document.getElementById("podium-section").innerHTML = `
+          <div class="col-span-3 text-center py-12 text-red-400">
+            <i data-lucide="alert-circle" class="w-12 h-12 mx-auto mb-4"></i>
+            <h2 class="text-xl font-bold">No hay datos disponibles</h2>
+            <p class="mt-2 text-slate-400">${err.message}</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      const champion = ranking[0] || { name: "—", points: 0 };
+      const second = ranking[1] || { name: "—", points: 0 };
+      const third = ranking[2] || { name: "—", points: 0 };
+
+      const html = `
+        <!-- Segundo Lugar -->
+        <div class="glass card-hover rounded-3xl p-8 text-center float-medium fade-in-2" style="min-height: 320px; display: flex; flex-direction: column; justify-content: center;">
+          <div class="inline-block mb-4">
+            <div class="w-20 h-20 rounded-full medal-silver flex items-center justify-center mx-auto">
+              <i data-lucide="medal" class="w-10 h-10"></i>
+            </div>
+          </div>
+          <div class="text-4xl font-black mb-1">🥈</div>
+          <h2 class="text-2xl font-bold mb-1">${second.name}</h2>
+          <p class="text-slate-400 text-sm mb-4">Segundo Lugar</p>
+          <div class="medal-silver rounded-2xl py-3 px-6 inline-block font-black text-2xl">
+            ${Math.round(second.points)} pts
+          </div>
+        </div>
+
+        <!-- Primer Lugar (Campeón) -->
+        <div class="glass-strong card-hover rounded-3xl p-10 text-center relative pulse-glow fade-in-1" style="min-height: 380px; transform: scale(1.08); display: flex; flex-direction: column; justify-content: center;">
+          <div class="champion-ribbon">CAMPEÓN</div>
+          <div class="inline-block mb-4">
+            <div class="w-24 h-24 rounded-full medal-gold flex items-center justify-center mx-auto float-slow">
+              <i data-lucide="crown" class="w-14 h-14 icon-glow"></i>
+            </div>
+          </div>
+          <div class="text-5xl mb-2">👑</div>
+          <h2 class="text-3xl font-black mb-2">${champion.name}</h2>
+          <p class="text-yellow-300 text-base mb-5 font-semibold">Campeón del Ciclo</p>
+          <div class="medal-gold rounded-2xl py-4 px-8 inline-block font-black text-3xl">
+            ${Math.round(champion.points)} pts
+          </div>
+        </div>
+
+        <!-- Tercer Lugar -->
+        <div class="glass card-hover rounded-3xl p-8 text-center float-fast fade-in-3" style="min-height: 320px; display: flex; flex-direction: column; justify-content: center;">
+          <div class="inline-block mb-4">
+            <div class="w-20 h-20 rounded-full medal-bronze flex items-center justify-center mx-auto">
+              <i data-lucide="award" class="w-10 h-10"></i>
+            </div>
+          </div>
+          <div class="text-4xl font-black mb-1">🥉</div>
+          <h2 class="text-2xl font-bold mb-1">${third.name}</h2>
+          <p class="text-slate-400 text-sm mb-4">Tercer Lugar</p>
+          <div class="medal-bronze rounded-2xl py-3 px-6 inline-block font-black text-2xl">
+            ${Math.round(third.points)} pts
+          </div>
+        </div>
+      `;
+      document.getElementById("podium-section").innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function renderRanking(ranking) {
+      if (!ranking || ranking.length === 0) {
+        document.getElementById("ranking-list").innerHTML = `
+          <div class="text-center py-8 text-slate-400">
+            <i data-lucide="alert-triangle" class="w-8 h-8 mx-auto mb-2"></i>
+            No hay datos disponibles
+          </div>
+        `;
+        return;
+      }
+
+      const total = ranking.length;
+      const html = ranking.map((p, i) => {
+        const rank = i + 1;
+        let badgeClass = "bg-white/5 text-slate-400";
+        if (rank === 1) badgeClass = "bg-yellow-500/20 text-yellow-400";
+        else if (rank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
+        else if (rank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
+
+        const width = 100 - (rank - 1) * 2.2;
+        const opacity = rank <= 3 ? 1 : Math.max(1 - (rank - 3) * 0.1, 0.5);
+        const fontWeight = rank <= 3 ? "font-bold text-xl" : "font-semibold";
+
+        return `
+          <div class="space-y-2">
+            <div class="flex items-center gap-4 ${rank > 3 ? 'text-slate-400' : ''}">
+              <span class="w-8 h-8 rounded-full ${badgeClass} flex items-center justify-center font-bold">${rank}</span>
+              <span class="flex-1">${p.name}</span>
+              <span class="${fontWeight}">${Math.round(p.points)}</span>
+            </div>
+            <div class="progress-bar" style="width: ${width}%; opacity: ${opacity};"></div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById("ranking-list").innerHTML = html;
+      document.getElementById("total-participants").textContent = `${total} participantes`;
+    }
+
+    function renderKPIs(ranking) {
+      if (!ranking || ranking.length === 0) {
+        document.getElementById("kpi-section").innerHTML = `
+          <div class="text-center py-8 text-slate-400">
+            <i data-lucide="alert-triangle" class="w-8 h-8 mx-auto mb-2"></i>
+            No hay datos para KPIs
+          </div>
+        `;
+        return;
+      }
+
+      const total = ranking.length;
+      const championPts = ranking[0]?.points || 0;
+      const avg = total ? Math.round(ranking.reduce((sum, p) => sum + p.points, 0) / total) : 0;
+      const excellence = ranking.filter(p => p.points >= 900).length;
+      const excellencePct = total ? Math.round((excellence / total) * 100) : 0;
+      const atRisk = ranking.filter(p => p.points < 750).length;
+      const belowStd = ranking.filter(p => p.points < 700).length;
+
+      const kpisHtml = `
+        <div class="kpi-card text-center">
+          <i data-lucide="trending-up" class="w-8 h-8 text-cyan-400 icon-glow mx-auto mb-3"></i>
+          <h4 class="text-slate-400 text-sm font-medium mb-2">Promedio Campaña</h4>
+          <p class="text-4xl font-black text-cyan-400">${avg}</p>
+          <p class="text-xs text-slate-500 mt-2">puntos</p>
+        </div>
+
+        <div class="kpi-card text-center">
+          <i data-lucide="sparkles" class="w-8 h-8 text-green-400 icon-glow mx-auto mb-3"></i>
+          <h4 class="text-slate-400 text-sm font-medium mb-2">% Excelencia</h4>
+          <p class="text-4xl font-black text-green-400">${excellencePct}%</p>
+          <p class="text-xs text-slate-500 mt-2">sobre 900 pts</p>
+        </div>
+
+        <div class="kpi-card text-center">
+          <i data-lucide="alert-circle" class="w-8 h-8 text-yellow-400 icon-glow mx-auto mb-3"></i>
+          <h4 class="text-slate-400 text-sm font-medium mb-2">En Riesgo</h4>
+          <p class="text-4xl font-black text-yellow-400">${atRisk}</p>
+          <p class="text-xs text-slate-500 mt-2">colaboradores</p>
+        </div>
+
+        <div class="kpi-card text-center">
+          <i data-lucide="alert-triangle" class="w-8 h-8 text-red-400 icon-glow mx-auto mb-3"></i>
+          <h4 class="text-slate-400 text-sm font-medium mb-2">Bajo Estándar</h4>
+          <p class="text-4xl font-black text-red-400">${belowStd}</p>
+          <p class="text-xs text-slate-500 mt-2">requiere atención</p>
+        </div>
+      `;
+
+      document.getElementById("kpi-section").innerHTML = kpisHtml;
+    }
+
+    function updateLastUpdated() {
+      const now = new Date().toLocaleString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      document.getElementById("last-updated").textContent = now;
+    }
+
+    // === INICIAR ===
+    async function init() {
+      const ranking = await fetchRanking();
+      renderPodium(ranking);
+      renderRanking(ranking);
+      renderKPIs(ranking);
+      updateLastUpdated();
+
+      // Recargar cada 5 minutos
+      setInterval(async () => {
+        const newRanking = await fetchRanking();
+        renderPodium(newRanking);
+        renderRanking(newRanking);
+        renderKPIs(newRanking);
+        updateLastUpdated();
+      }, 5 * 60 * 1000);
+    }
+
+    // Ejecutar al cargar
+    init();
+
+    // Asegurar que los íconos se creen
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+
+</body>
+</html>
