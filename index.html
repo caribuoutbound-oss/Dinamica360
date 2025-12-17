@@ -165,39 +165,6 @@
       50% { transform: translateY(-10px) scale(1.03); }
     }
 
-    .progress-container {
-      height: 10px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 999px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .progress-bar {
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #3b82f6 0%, #06b6d4 50%, #8b5cf6 100%);
-      box-shadow: 0 3px 15px rgba(59, 130, 246, 0.5);
-      position: relative;
-      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .progress-bar::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-      animation: shimmer 2.5s infinite;
-    }
-
-    @keyframes shimmer {
-      0% { left: -100%; }
-      100% { left: 100%; }
-    }
-
     .pulse-champion {
       animation: pulseChampion 4s ease-in-out infinite;
     }
@@ -325,11 +292,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       font-weight: 800;
-      font-size: 1.1rem;
+      font-size: 0.875rem;
       transition: all 0.3s ease;
     }
 
@@ -357,6 +324,183 @@
     @media (min-width: 1440px) and (max-width: 1919px) {
       .container-custom { max-width: 1400px; }
     }
+
+    /* Estilos compactos para el ranking TOP */
+    .compact-ranking-item {
+      padding: 0.375rem 0.5rem !important;
+      min-height: auto !important;
+    }
+    .compact-ranking-item:hover {
+      background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+    .compact-ranking-text {
+      font-size: 0.8125rem !important;
+    }
+
+    /* Estilos para tabla general con barra */
+    .general-ranking-item {
+      padding: 0.5rem 0.75rem;
+    }
+    .general-ranking-item:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-container {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
+      transition: width 0.6s ease;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .pagination-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e5e7eb;
+      padding: 0.375rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .pagination-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .page-info {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      margin: 0 1rem;
+    }
+
+    /* Estilos para las pestañas */
+    .tab-navigation {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .tab-button {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .tab-button.active {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 4px;
+      background: #3b82f6;
+      border-radius: 2px;
+    }
+
+    .tab-button:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Contenido de las pestañas */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Estilos para la tabla por fecha */
+    .date-ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .date-ranking-table th,
+    .date-ranking-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .date-ranking-table th {
+      background: rgba(255, 255, 255, 0.05);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .date-ranking-table tr:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .date-ranking-table .agent-name {
+      font-weight: 600;
+    }
+
+    .date-ranking-table .points-cell {
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    /* Ajuste para encabezados de fecha más compactos */
+    .date-ranking-table th.date-header {
+      font-size: 0.75rem;
+      white-space: nowrap;
+      padding: 0.5rem 0.75rem;
+      text-align: center;
+    }
+
+    .date-ranking-table td.points-cell {
+      text-align: center;
+    }
+
+    /* Eliminar el botón de descarga */
+    .download-button {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -378,47 +522,155 @@
     <div class="container-custom mx-auto px-8" style="max-width: 1600px;">
 
       <!-- Header Premium -->
-      <header class="text-center mb-16 fade-in">
-        <div class="inline-block mb-6">
-          <div class="flex items-center gap-4 glass-strong rounded-full px-10 py-4 card-interactive">
-            <i data-lucide="trophy" class="w-7 h-7 text-yellow-400 icon-glow"></i>
-            <span class="text-base font-bold text-slate-200 uppercase tracking-widest">Q4 2025 • Dashboard Ejecutivo</span>
-          </div>
-        </div>
-        <h1 class="text-6xl font-black mb-4 gradient-text leading-tight">
+      <header class="text-center mb-8 fade-in">
+        <h1 class="text-6xl font-black mb-2 gradient-text leading-tight">
           Ranking de Excelencia
         </h1>
         <p class="text-slate-400 text-xl font-medium">Reconocimiento a los mejores colaboradores del ciclo</p>
       </header>
 
-      <!-- Podio Premium -->
-      <section class="grid grid-cols-3 gap-8 items-end mb-16" id="podium-section">
-        <div class="col-span-3 text-center py-20">
-          <div class="spinner mx-auto mb-6"></div>
-          <p class="text-slate-400 text-lg font-medium">Cargando ranking en tiempo real...</p>
+      <!-- KPIs Row -->
+      <section class="grid grid-cols-4 gap-8 mb-8" id="kpi-row">
+        <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-1">
+          <i data-lucide="trending-up" class="w-10 h-10 text-cyan-400 icon-glow mb-4"></i>
+          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">Promedio Campaña</h4>
+          <p class="text-3xl font-black text-cyan-400">244</p>
+          <p class="text-xs text-slate-500 font-medium">puntos totales</p>
+        </div>
+        <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-2">
+          <i data-lucide="sparkles" class="w-10 h-10 text-green-400 icon-glow mb-4"></i>
+          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">% Excelencia</h4>
+          <p class="text-3xl font-black text-green-400">0%</p>
+          <p class="text-xs text-slate-500 font-medium">de 900 pts</p>
+        </div>
+        <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-3">
+          <i data-lucide="alert-circle" class="w-10 h-10 text-yellow-400 icon-glow mb-4"></i>
+          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">En Riesgo</h4>
+          <p class="text-3xl font-black text-yellow-400">10</p>
+          <p class="text-xs text-slate-500 font-medium">colaboradores</p>
+        </div>
+        <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-4">
+          <i data-lucide="alert-triangle" class="w-10 h-10 text-red-400 icon-glow mb-4"></i>
+          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">Bajo Levantadas</h4>
+          <p class="text-3xl font-black text-red-400">10</p>
+          <p class="text-xs text-slate-500 font-medium">requiere atención</p>
         </div>
       </section>
 
-      <!-- Grid Principal: Ranking + KPIs -->
+      <!-- Podio + Ranking Top 10 -->
       <div class="grid grid-cols-12 gap-8 mb-12">
-        <!-- Ranking Top 10 - 8 columnas -->
-        <div class="col-span-8 glass-strong rounded-3xl p-10 card-interactive fade-in-4" id="ranking-section">
-          <div class="flex items-center justify-between mb-8">
-            <h3 class="text-3xl font-bold flex items-center gap-4">
-              <i data-lucide="bar-chart-3" class="w-8 h-8 text-blue-400 icon-glow"></i>
-              Top 10 General
-            </h3>
-            <span class="text-slate-400 text-base font-medium" id="total-participants">
-              <i data-lucide="users" class="w-5 h-5 inline mr-2"></i>
-              Cargando...
-            </span>
+        <!-- Podio Section -->
+        <div class="col-span-8 grid grid-cols-3 gap-8" id="podium-section">
+          <!-- Segundo Lugar -->
+          <div class="glass card-interactive rounded-3xl p-8 text-center float-medium fade-in-2" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
+            <div class="inline-block mb-4">
+              <div class="w-20 h-20 rounded-full medal-silver flex items-center justify-center mx-auto">
+                <i data-lucide="medal" class="w-10 h-10"></i>
+              </div>
+            </div>
+            <h2 class="text-2xl font-black mb-1">SARITA MILAGROS RODRIGUEZ PALACIOS</h2>
+            <p class="text-slate-400 text-sm mb-4 font-medium">Segundo Lugar</p>
+            <div class="medal-silver rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
+              280 pts
+            </div>
           </div>
-          <div class="space-y-6" id="ranking-list"></div>
+
+          <!-- Primer Lugar (Campeón) -->
+          <div class="glass-strong card-interactive rounded-3xl p-10 text-center relative pulse-champion fade-in-1" style="min-height: 450px; transform: scale(1.1); display: flex; flex-direction: column; justify-content: center;">
+            <div class="champion-ribbon">⭐ CAMPEÓN</div>
+            <div class="inline-block mb-4">
+              <div class="w-24 h-24 rounded-full medal-gold flex items-center justify-center mx-auto float-slow">
+                <i data-lucide="crown" class="w-14 h-14 icon-glow"></i>
+              </div>
+            </div>
+            <h2 class="text-3xl font-black mb-2">YADHIRA YULEISI PUENTE AQUINO</h2>
+            <p class="text-yellow-300 text-base mb-6 font-bold">Campeón del Ciclo</p>
+            <div class="medal-gold rounded-xl py-4 px-8 inline-block font-black text-3xl shadow-2xl">
+              310 pts
+            </div>
+          </div>
+
+          <!-- Tercer Lugar -->
+          <div class="glass card-interactive rounded-3xl p-8 text-center float-fast fade-in-3" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
+            <div class="inline-block mb-4">
+              <div class="w-20 h-20 rounded-full medal-bronze flex items-center justify-center mx-auto">
+                <i data-lucide="award" class="w-10 h-10"></i>
+              </div>
+            </div>
+            <h2 class="text-2xl font-black mb-1">ALEXANDER AYRTON SALDIAS SANCHEZ</h2>
+            <p class="text-slate-400 text-sm mb-4 font-medium">Tercer Lugar</p>
+            <div class="medal-bronze rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
+              280 pts
+            </div>
+          </div>
         </div>
 
-        <!-- KPIs Ejecutivos - 4 columnas -->
-        <div class="col-span-4 space-y-6 fade-in-5" id="kpi-section"></div>
+        <!-- Ranking Top 10 Compacto (sin barras) -->
+        <div class="col-span-4 glass-strong rounded-3xl p-6 card-interactive fade-in-5" id="ranking-section">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold flex items-center gap-2">
+              <i data-lucide="bar-chart-3" class="w-5 h-5 text-blue-400 icon-glow"></i>
+              Top 10 General
+            </h3>
+            <span class="text-slate-400 text-xs font-medium" id="total-participants">
+              <i data-lucide="users" class="w-4 h-4 inline mr-1"></i>
+              10 participantes
+            </span>
+          </div>
+          <div class="space-y-1" id="ranking-list">
+            <!-- Renderizado dinámico -->
+          </div>
+        </div>
       </div>
+
+      <!-- Sección de Pestañas -->
+      <section class="mb-12">
+        <!-- Barra de Navegación de Pestañas -->
+        <div class="tab-navigation">
+          <div class="tab-button active" data-tab="general">Ranking General</div>
+          <div class="tab-button" data-tab="by-date">Detallado por Fecha</div>
+        </div>
+
+        <!-- Contenido de la Pestaña General -->
+        <div id="tab-general" class="tab-content active">
+          <div class="glass-strong rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-xl font-bold flex items-center gap-2">
+                <i data-lucide="users" class="w-5 h-5 text-indigo-400"></i>
+                Ranking General
+              </h3>
+              <span class="text-slate-400 text-xs" id="general-total">Cargando…</span>
+            </div>
+
+            <div id="general-ranking-list" class="space-y-2 mb-4">
+              <!-- Lista paginada -->
+            </div>
+
+            <div class="pagination">
+              <button id="prev-page" class="pagination-btn" disabled>← Anterior</button>
+              <span class="page-info" id="page-info">Página 1 de 1</span>
+              <button id="next-page" class="pagination-btn" disabled>Siguiente →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido de la Pestaña Por Fecha -->
+        <div id="tab-by-date" class="tab-content">
+          <div class="glass-strong rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-xl font-bold flex items-center gap-2">
+                <i data-lucide="calendar-days" class="w-5 h-5 text-purple-400"></i>
+                Detallado por Fecha
+              </h3>
+              <span class="text-slate-400 text-xs" id="by-date-total">Cargando…</span>
+            </div>
+
+            <div id="date-ranking-table-container">
+              <!-- Tabla renderizada dinámicamente -->
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- Footer -->
       <footer class="text-center pt-8 border-t border-white/5 fade-in">
@@ -435,113 +687,142 @@
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbz6ja1O0AwvYBVfIn4ik9Q5VBp_Lj7P1qWMG9xIFuFSiCe8RDFrl7fqYH8IgDGCXys/exec";
 
-    async function fetchRanking() {
+    let allRankingData = [];
+    let dateRankingData = []; // Nuevo: Datos agrupados por fecha
+    let currentPage = 1;
+    const ITEMS_PER_PAGE = 20;
+
+    async function fetchAllRanking() {
       try {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error("Error al conectar con la fuente de datos");
         const data = await res.json();
         if (!Array.isArray(data)) throw new Error("Formato de datos inválido");
 
-        const grouped = {};
+        // Agrupar por nombre para el ranking general
+        const groupedByAgent = {};
         for (const row of data) {
           const name = row.NOMBRE_COMPLETO || "Sin nombre";
           const points = parseFloat(row.Puntos_Total) || 0;
 
-          if (!grouped[name]) {
-            grouped[name] = { name, points: 0 };
+          if (!groupedByAgent[name]) {
+            groupedByAgent[name] = { name, points: 0 };
           }
-          grouped[name].points += points;
+          groupedByAgent[name].points += points;
         }
+        allRankingData = Object.values(groupedByAgent).sort((a, b) => b.points - a.points);
 
-        return Object.values(grouped)
-          .sort((a, b) => b.points - a.points)
-          .slice(0, 10);
+        // Agrupar por nombre y fecha para la tabla detallada
+        const groupedByDate = {};
+        for (const row of data) {
+          const name = row.NOMBRE_COMPLETO || "Sin nombre";
+          const date = row.Fecha || "Sin Fecha";
+          const points = parseFloat(row.Puntos_Total) || 0;
+
+          if (!groupedByDate[name]) {
+            groupedByDate[name] = { name, dates: {} };
+          }
+          if (!groupedByDate[name].dates[date]) {
+            groupedByDate[name].dates[date] = 0;
+          }
+          groupedByDate[name].dates[date] += points;
+        }
+        dateRankingData = Object.values(groupedByDate);
+
+        // Obtener todas las fechas únicas
+        const allDates = new Set();
+        for (const agent of dateRankingData) {
+          for (const date in agent.dates) {
+            allDates.add(date);
+          }
+        }
+        // Ordenar las fechas
+        const sortedDates = Array.from(allDates).sort((a, b) => {
+          // Convertir a objetos Date para comparar correctamente
+          const dateA = new Date(a);
+          const dateB = new Date(b);
+          return dateA - dateB;
+        });
+
+        // Renderizar todo
+        renderPodium(allRankingData.slice(0, 3));
+        renderRanking(allRankingData.slice(0, 10));
+        renderGeneralRankingPage(1);
+        updateGeneralTotal();
+        updatePagination();
+        renderDateTable(sortedDates);
+        updateDateTotal(sortedDates.length);
+        updateLastUpdated();
+
+        // Inicializar eventos de pestañas
+        initTabNavigation();
       } catch (err) {
-        console.error(err);
-        throw err;
+        console.error('Error al cargar:', err);
+        document.getElementById("podium-section").innerHTML = `<div class="col-span-3 glass rounded-3xl p-12 text-center">
+          <i data-lucide="alert-circle" class="w-16 h-16 mx-auto mb-6 text-red-400"></i>
+          <h2 class="text-2xl font-bold text-red-400 mb-3">Error de Conexión</h2>
+          <p class="text-slate-400 mb-4">${err.message}</p>
+          <button onclick="location.reload()" class="glass-strong px-4 py-2 rounded-lg font-semibold text-sm hover:bg-white/10 transition-all">Reintentar</button>
+        </div>`;
+        lucide.createIcons();
       }
     }
 
     function renderPodium(ranking) {
-      if (!ranking || ranking.length === 0) {
-        document.getElementById("podium-section").innerHTML = `
-          <div class="col-span-3 glass rounded-3xl p-12 text-center">
-            <i data-lucide="alert-circle" class="w-16 h-16 mx-auto mb-6 text-red-400"></i>
-            <h2 class="text-2xl font-bold text-red-400 mb-3">Error al cargar datos</h2>
-            <p class="text-slate-400">No se pudieron obtener los datos del ranking.</p>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
+      if (!ranking || ranking.length === 0) return;
       const champion = ranking[0] || { name: "—", points: 0 };
       const second = ranking[1] || { name: "—", points: 0 };
       const third = ranking[2] || { name: "—", points: 0 };
 
-      const html = `
+      const podiumHtml = `
         <!-- Segundo Lugar -->
-        <div class="glass card-interactive rounded-3xl p-10 text-center float-medium fade-in-2" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
-          <div class="inline-block mb-6">
-            <div class="w-24 h-24 rounded-full medal-silver flex items-center justify-center mx-auto">
-              <i data-lucide="medal" class="w-12 h-12"></i>
+        <div class="glass card-interactive rounded-3xl p-8 text-center float-medium fade-in-2" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
+          <div class="inline-block mb-4">
+            <div class="w-20 h-20 rounded-full medal-silver flex items-center justify-center mx-auto">
+              <i data-lucide="medal" class="w-10 h-10"></i>
             </div>
           </div>
-          <div class="text-5xl mb-3">🥈</div>
-          <h2 class="text-3xl font-black mb-2">${second.name}</h2>
-          <p class="text-slate-400 text-base mb-6 font-medium">Segundo Lugar</p>
-          <div class="medal-silver rounded-2xl py-4 px-8 inline-block font-black text-3xl shadow-2xl">
+          <h2 class="text-xl font-black mb-1">${second.name}</h2>
+          <p class="text-slate-400 text-sm mb-4 font-medium">Segundo Lugar</p>
+          <div class="medal-silver rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
             ${Math.round(second.points)} pts
           </div>
         </div>
 
-        <!-- Primer Lugar (Campeón) -->
-        <div class="glass-strong card-interactive rounded-3xl p-12 text-center relative pulse-champion fade-in-1" style="min-height: 450px; transform: scale(1.1); display: flex; flex-direction: column; justify-content: center;">
+        <!-- Primer Lugar -->
+        <div class="glass-strong card-interactive rounded-3xl p-10 text-center relative pulse-champion fade-in-1" style="min-height: 450px; transform: scale(1.1); display: flex; flex-direction: column; justify-content: center;">
           <div class="champion-ribbon">⭐ CAMPEÓN</div>
-          <div class="inline-block mb-6">
-            <div class="w-28 h-28 rounded-full medal-gold flex items-center justify-center mx-auto float-slow">
-              <i data-lucide="crown" class="w-16 h-16 icon-glow"></i>
+          <div class="inline-block mb-4">
+            <div class="w-24 h-24 rounded-full medal-gold flex items-center justify-center mx-auto float-slow">
+              <i data-lucide="crown" class="w-14 h-14 icon-glow"></i>
             </div>
           </div>
-          <div class="text-6xl mb-4">👑</div>
-          <h2 class="text-4xl font-black mb-3">${champion.name}</h2>
-          <p class="text-yellow-300 text-lg mb-8 font-bold">Campeón del Ciclo</p>
-          <div class="medal-gold rounded-2xl py-5 px-10 inline-block font-black text-4xl shadow-2xl">
+          <h2 class="text-xl font-black mb-2">${champion.name}</h2>
+          <p class="text-yellow-300 text-base mb-6 font-bold">Campeón del Ciclo</p>
+          <div class="medal-gold rounded-xl py-4 px-8 inline-block font-black text-3xl shadow-2xl">
             ${Math.round(champion.points)} pts
           </div>
         </div>
 
         <!-- Tercer Lugar -->
-        <div class="glass card-interactive rounded-3xl p-10 text-center float-fast fade-in-3" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
-          <div class="inline-block mb-6">
-            <div class="w-24 h-24 rounded-full medal-bronze flex items-center justify-center mx-auto">
-              <i data-lucide="award" class="w-12 h-12"></i>
+        <div class="glass card-interactive rounded-3xl p-8 text-center float-fast fade-in-3" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
+          <div class="inline-block mb-4">
+            <div class="w-20 h-20 rounded-full medal-bronze flex items-center justify-center mx-auto">
+              <i data-lucide="award" class="w-10 h-10"></i>
             </div>
           </div>
-          <div class="text-5xl mb-3">🥉</div>
-          <h2 class="text-3xl font-black mb-2">${third.name}</h2>
-          <p class="text-slate-400 text-base mb-6 font-medium">Tercer Lugar</p>
-          <div class="medal-bronze rounded-2xl py-4 px-8 inline-block font-black text-3xl shadow-2xl">
+          <h2 class="text-xl font-black mb-1">${third.name}</h2>
+          <p class="text-slate-400 text-sm mb-4 font-medium">Tercer Lugar</p>
+          <div class="medal-bronze rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
             ${Math.round(third.points)} pts
           </div>
         </div>
       `;
-      document.getElementById("podium-section").innerHTML = html;
+      document.getElementById("podium-section").innerHTML = podiumHtml;
       lucide.createIcons();
     }
 
     function renderRanking(ranking) {
-      if (!ranking || ranking.length === 0) {
-        document.getElementById("ranking-list").innerHTML = `
-          <div class="text-center py-12 text-slate-400">
-            <i data-lucide="alert-triangle" class="w-12 h-12 mx-auto mb-4"></i>
-            <p class="text-lg">No hay datos disponibles</p>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
       const total = ranking.length;
       const html = ranking.map((p, i) => {
         const rank = i + 1;
@@ -550,84 +831,153 @@
         else if (rank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
         else if (rank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
 
-        const width = Math.max(100 - (rank - 1) * 2, 30);
-        const opacity = rank <= 3 ? 1 : Math.max(1 - (rank - 3) * 0.08, 0.5);
-        const fontWeight = rank <= 3 ? "font-bold text-2xl" : "font-semibold text-lg";
-        const textColor = rank <= 3 ? '' : 'text-slate-400';
-
         return `
-          <div class="space-y-3 hover:bg-white/5 rounded-xl p-3 transition-all duration-300">
-            <div class="flex items-center gap-5 ${textColor}">
+          <div class="compact-ranking-item rounded-lg transition-all duration-200">
+            <div class="flex items-center gap-3">
               <span class="rank-badge ${badgeClass}">${rank}</span>
-              <span class="flex-1 text-lg font-semibold">${p.name}</span>
-              <span class="${fontWeight}">${Math.round(p.points)}</span>
-            </div>
-            <div class="progress-container">
-              <div class="progress-bar" style="width: ${width}%; opacity: ${opacity};"></div>
+              <span class="flex-1 compact-ranking-text">${p.name}</span>
+              <span class="font-semibold compact-ranking-text">${Math.round(p.points)}</span>
             </div>
           </div>
         `;
       }).join('');
 
       document.getElementById("ranking-list").innerHTML = html;
-      document.getElementById("total-participants").innerHTML = `
-        <i data-lucide="users" class="w-5 h-5 inline mr-2"></i>
-        ${total} participantes
-      `;
+      document.getElementById("total-participants").innerHTML = `<i data-lucide="users" class="w-4 h-4 inline mr-1"></i>${total} participantes`;
       lucide.createIcons();
     }
 
-    function renderKPIs(ranking) {
-      if (!ranking || ranking.length === 0) {
-        document.getElementById("kpi-section").innerHTML = `
-          <div class="glass rounded-3xl p-8 text-center">
-            <i data-lucide="alert-triangle" class="w-12 h-12 mx-auto mb-4 text-slate-400"></i>
-            <p class="text-slate-400">No hay datos para KPIs</p>
+    function renderGeneralRankingPage(page) {
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const pageData = allRankingData.slice(start, end);
+
+      const maxPoints = allRankingData[0]?.points || 100;
+      const html = pageData.map((p, idx) => {
+        const globalRank = start + idx + 1;
+        const width = Math.min(100, (p.points / maxPoints) * 100);
+        let badgeClass = "bg-white/5 text-slate-400";
+        if (globalRank === 1) badgeClass = "bg-yellow-500/20 text-yellow-400";
+        else if (globalRank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
+        else if (globalRank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
+
+        return `
+          <div class="general-ranking-item rounded-lg transition-all duration-200">
+            <div class="flex items-center gap-3">
+              <span class="rank-badge ${badgeClass}">${globalRank}</span>
+              <span class="flex-1 text-sm font-medium">${p.name}</span>
+              <span class="font-semibold text-sm">${Math.round(p.points)}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: ${width}%;"></div>
+            </div>
           </div>
         `;
-        lucide.createIcons();
-        return;
+      }).join('');
+
+      document.getElementById("general-ranking-list").innerHTML = html || `<div class="text-center py-6 text-slate-500">No hay datos</div>`;
+      lucide.createIcons();
+    }
+
+    function updateGeneralTotal() {
+      document.getElementById("general-total").textContent = `${allRankingData.length} colaboradores`;
+    }
+
+    function updatePagination() {
+      const totalPages = Math.ceil(allRankingData.length / ITEMS_PER_PAGE);
+      document.getElementById("page-info").textContent = `Página ${currentPage} de ${totalPages}`;
+
+      document.getElementById("prev-page").disabled = currentPage === 1;
+      document.getElementById("next-page").disabled = currentPage >= totalPages;
+    }
+
+    document.getElementById("prev-page").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderGeneralRankingPage(currentPage);
+        updatePagination();
+      }
+    });
+
+    document.getElementById("next-page").addEventListener("click", () => {
+      const totalPages = Math.ceil(allRankingData.length / ITEMS_PER_PAGE);
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderGeneralRankingPage(currentPage);
+        updatePagination();
+      }
+    });
+
+    function renderDateTable(dates) {
+      // Función auxiliar para formatear la fecha a DD/MM/YYYY
+      function formatDate(dateStr) {
+        if (!dateStr) return "Fecha Inválida";
+        // Intentar parsear la fecha
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) {
+          // Si no se puede parsear, devolver la cadena original
+          return dateStr;
+        }
+        // Formatear a DD/MM/YYYY
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
       }
 
-      const total = ranking.length;
-      const avg = total ? Math.round(ranking.reduce((sum, p) => sum + p.points, 0) / total) : 0;
-      const excellence = ranking.filter(p => p.points >= 900).length;
-      const excellencePct = total ? Math.round((excellence / total) * 100) : 0;
-      const atRisk = ranking.filter(p => p.points < 750).length;
-      const belowStd = ranking.filter(p => p.points < 700).length;
+      // Crear encabezado de la tabla
+      let theadHtml = `<tr><th>Agente</th>`;
+      dates.forEach(date => {
+        // Formatear la fecha
+        const formattedDate = formatDate(date);
+        theadHtml += `<th class="date-header">${formattedDate}</th>`;
+      });
+      theadHtml += `</tr>`;
 
-      const kpisHtml = `
-        <div class="kpi-card text-center">
-          <i data-lucide="trending-up" class="w-10 h-10 text-cyan-400 icon-glow mx-auto mb-4"></i>
-          <h4 class="text-slate-400 text-sm font-semibold mb-3 uppercase tracking-wider">Promedio Campaña</h4>
-          <p class="text-5xl font-black text-cyan-400 mb-2">${avg}</p>
-          <p class="text-xs text-slate-500 font-medium">puntos totales</p>
-        </div>
+      // Crear cuerpo de la tabla
+      let tbodyHtml = '';
+      dateRankingData.forEach(agent => {
+        let rowHtml = `<tr><td class="agent-name">${agent.name}</td>`;
+        dates.forEach(date => {
+          const points = agent.dates[date] || 0;
+          rowHtml += `<td class="points-cell">${Math.round(points)}</td>`;
+        });
+        rowHtml += `</tr>`;
+        tbodyHtml += rowHtml;
+      });
 
-        <div class="kpi-card text-center">
-          <i data-lucide="sparkles" class="w-10 h-10 text-green-400 icon-glow mx-auto mb-4"></i>
-          <h4 class="text-slate-400 text-sm font-semibold mb-3 uppercase tracking-wider">% Excelencia</h4>
-          <p class="text-5xl font-black text-green-400 mb-2">${excellencePct}%</p>
-          <p class="text-xs text-slate-500 font-medium">${excellence} sobre 900 pts</p>
-        </div>
-
-        <div class="kpi-card text-center">
-          <i data-lucide="alert-circle" class="w-10 h-10 text-yellow-400 icon-glow mx-auto mb-4"></i>
-          <h4 class="text-slate-400 text-sm font-semibold mb-3 uppercase tracking-wider">En Riesgo</h4>
-          <p class="text-5xl font-black text-yellow-400 mb-2">${atRisk}</p>
-          <p class="text-xs text-slate-500 font-medium">colaboradores</p>
-        </div>
-
-        <div class="kpi-card text-center">
-          <i data-lucide="alert-triangle" class="w-10 h-10 text-red-400 icon-glow mx-auto mb-4"></i>
-          <h4 class="text-slate-400 text-sm font-semibold mb-3 uppercase tracking-wider">Bajo Estándar</h4>
-          <p class="text-5xl font-black text-red-400 mb-2">${belowStd}</p>
-          <p class="text-xs text-slate-500 font-medium">requiere atención</p>
-        </div>
+      const tableHtml = `
+        <table class="date-ranking-table">
+          <thead>${theadHtml}</thead>
+          <tbody>${tbodyHtml}</tbody>
+        </table>
       `;
 
-      document.getElementById("kpi-section").innerHTML = kpisHtml;
+      document.getElementById("date-ranking-table-container").innerHTML = tableHtml;
       lucide.createIcons();
+    }
+
+    function updateDateTotal(numDates) {
+      document.getElementById("by-date-total").textContent = `${numDates} fechas registradas`;
+    }
+
+    function initTabNavigation() {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabId = button.getAttribute('data-tab');
+
+          // Remover clase 'active' de todos los botones y contenidos
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+
+          // Añadir clase 'active' al botón y contenido seleccionado
+          button.classList.add('active');
+          document.getElementById(`tab-${tabId}`).classList.add('active');
+        });
+      });
     }
 
     function updateLastUpdated() {
@@ -642,38 +992,16 @@
     }
 
     async function init() {
-      try {
-        const ranking = await fetchRanking();
-        renderPodium(ranking);
-        renderRanking(ranking);
-        renderKPIs(ranking);
-        updateLastUpdated();
+      await fetchAllRanking();
 
-        setInterval(async () => {
-          try {
-            const newRanking = await fetchRanking();
-            renderPodium(newRanking);
-            renderRanking(newRanking);
-            renderKPIs(newRanking);
-            updateLastUpdated();
-          } catch (err) {
-            console.error('Error al actualizar:', err);
-          }
-        }, 5 * 60 * 1000);
-      } catch (err) {
-        console.error('Error al inicializar:', err);
-        document.getElementById("podium-section").innerHTML = `
-          <div class="col-span-3 glass rounded-3xl p-12 text-center">
-            <i data-lucide="alert-circle" class="w-16 h-16 mx-auto mb-6 text-red-400"></i>
-            <h2 class="text-2xl font-bold text-red-400 mb-3">Error de Conexión</h2>
-            <p class="text-slate-400 mb-4">${err.message}</p>
-            <button onclick="location.reload()" class="glass-strong px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-all">
-              Reintentar
-            </button>
-          </div>
-        `;
-        lucide.createIcons();
-      }
+      // Actualización periódica cada 5 minutos
+      setInterval(async () => {
+        try {
+          await fetchAllRanking();
+        } catch (err) {
+          console.error('Error en actualización automática:', err);
+        }
+      }, 5 * 60 * 1000);
     }
 
     document.addEventListener('DOMContentLoaded', () => {
