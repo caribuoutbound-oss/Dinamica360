@@ -19,12 +19,17 @@
     
     body {
       font-family: 'Inter', sans-serif;
-      background: #050816;
-      color: #e5e7eb;
       overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
 
-    .bg-animated {
+    /* ============ MODO OSCURO (DEFAULT) ============ */
+    body.dark-mode {
+      background: #050816;
+      color: #e5e7eb;
+    }
+
+    .dark-mode .bg-animated {
       position: fixed;
       top: 0;
       left: 0;
@@ -39,6 +44,260 @@
       animation: gradientPulse 20s ease infinite;
     }
 
+    .dark-mode .glass {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .dark-mode .glass-strong {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .dark-mode .gradient-text {
+      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .dark-mode .search-input {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e5e7eb;
+    }
+
+    .dark-mode .search-input::placeholder {
+      color: #94a3b8;
+    }
+
+    .dark-mode .tab-navigation {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dark-mode .tab-button.active {
+      background: rgba(59, 130, 246, 0.2);
+      color: #3b82f6;
+    }
+
+    .dark-mode .pagination-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e5e7eb;
+    }
+
+    .dark-mode .data-table {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .dark-mode .data-table th {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .dark-mode .data-table td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ============ MODO CLARO (LIGHT) ============ */
+    body.light-mode {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      color: #1e293b;
+    }
+
+    .light-mode .bg-animated {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(78, 205, 196, 0.15) 0%, transparent 60%),
+        linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      animation: gradientPulse 15s ease infinite;
+    }
+
+    .light-mode .glass {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 1);
+    }
+
+    .light-mode .glass-strong {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(25px) saturate(200%);
+      border: 2px solid rgba(255, 255, 255, 1);
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+    }
+
+    .light-mode .gradient-text {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ffd700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .light-mode .kpi-card {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.25);
+    }
+
+    .light-mode .kpi-card:hover {
+      background: rgba(255, 255, 255, 1);
+      box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+    }
+
+    .light-mode .search-input {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      color: #1e293b;
+    }
+
+    .light-mode .search-input:focus {
+      border-color: rgba(102, 126, 234, 0.6);
+      background: rgba(255, 255, 255, 1);
+    }
+
+    .light-mode .search-input::placeholder {
+      color: #64748b;
+    }
+
+    .light-mode .tab-navigation {
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
+    }
+
+    .light-mode .tab-button {
+      color: #475569;
+    }
+
+    .light-mode .tab-button.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #ffffff;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    .light-mode .pagination-btn {
+      background: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(102, 126, 234, 0.3);
+      color: #1e293b;
+    }
+
+    .light-mode .pagination-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 1);
+      border-color: rgba(102, 126, 234, 0.6);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .light-mode .data-table {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
+    }
+
+    .light-mode .data-table th {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+      color: #1e293b;
+    }
+
+    .light-mode .data-table td {
+      border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+      color: #334155;
+    }
+
+    .light-mode .data-table tr:hover {
+      background: rgba(102, 126, 234, 0.08);
+    }
+
+    .light-mode .general-ranking-item:hover {
+      background-color: rgba(102, 126, 234, 0.1) !important;
+    }
+
+    .light-mode .compact-ranking-item:hover {
+      background-color: rgba(102, 126, 234, 0.1) !important;
+    }
+
+    .light-mode .progress-container {
+      background: rgba(102, 126, 234, 0.15);
+    }
+
+    .light-mode .progress-bar {
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+    }
+
+    .light-mode .page-info {
+      color: #475569;
+    }
+
+    .light-mode .text-slate-400,
+    .light-mode .text-slate-500,
+    .light-mode .text-slate-600 {
+      color: #475569 !important;
+    }
+
+    /* Toggle Button Styles */
+    .theme-toggle {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .light-mode .theme-toggle {
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid rgba(255, 255, 255, 1);
+      box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+    }
+
+    .light-mode .theme-toggle:hover {
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+    }
+
+    .toggle-icon {
+      width: 24px;
+      height: 24px;
+      transition: all 0.4s ease;
+    }
+
+    .toggle-text {
+      font-weight: 600;
+      font-size: 0.875rem;
+      letter-spacing: 0.5px;
+    }
+
+    .dark-mode .toggle-text {
+      color: #e5e7eb;
+    }
+
+    .light-mode .toggle-text {
+      color: #1e293b;
+    }
+
+    /* Animaciones compartidas */
     @keyframes gradientPulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.9; }
@@ -53,6 +312,10 @@
       animation: float-particle 20s infinite;
     }
 
+    .light-mode .particle {
+      background: rgba(255, 215, 0, 0.4);
+    }
+
     @keyframes float-particle {
       0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
       10% { opacity: 0.5; }
@@ -61,22 +324,10 @@
     }
 
     .glass {
-      background: rgba(255, 255, 255, 0.04);
-      backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .glass-strong {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(28px) saturate(200%);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
     .glass:hover {
-      background: rgba(255, 255, 255, 0.06);
-      border-color: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
     }
 
@@ -209,7 +460,6 @@
     .kpi-card:hover {
       transform: translateY(-6px) scale(1.02);
       border-color: rgba(255, 255, 255, 0.25);
-      background: rgba(255, 255, 255, 0.08);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
 
@@ -244,15 +494,6 @@
       filter: drop-shadow(0 0 15px currentColor);
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: gradientShift 8s ease infinite;
-      background-size: 200% 200%;
-    }
-
     @keyframes gradientShift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -272,20 +513,6 @@
       box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
       border-radius: 8px;
       text-transform: uppercase;
-    }
-
-    .spinner {
-      border: 3px solid rgba(59, 130, 246, 0.1);
-      border-top: 3px solid #3b82f6;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
 
     .rank-badge {
@@ -311,38 +538,37 @@
 
     .card-interactive:hover {
       transform: translateY(-10px) scale(1.03);
+    }
+
+    .dark-mode .card-interactive:hover {
       box-shadow: 
         0 25px 70px rgba(59, 130, 246, 0.35),
         0 0 50px rgba(139, 92, 246, 0.25);
       border-color: rgba(255, 255, 255, 0.3);
     }
 
-    @media (min-width: 1920px) {
-      .container-custom { max-width: 1800px; }
+    .light-mode .card-interactive:hover {
+      box-shadow: 
+        0 25px 70px rgba(102, 126, 234, 0.4),
+        0 0 50px rgba(240, 147, 251, 0.3);
+      border-color: rgba(255, 255, 255, 1);
     }
 
-    @media (min-width: 1440px) and (max-width: 1919px) {
-      .container-custom { max-width: 1400px; }
-    }
-
-    /* Estilos compactos para el ranking TOP */
     .compact-ranking-item {
       padding: 0.375rem 0.5rem !important;
       min-height: auto !important;
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
     }
-    .compact-ranking-item:hover {
-      background-color: rgba(255, 255, 255, 0.05) !important;
-    }
+
     .compact-ranking-text {
       font-size: 0.8125rem !important;
     }
 
-    /* Estilos para tabla general con barra */
     .general-ranking-item {
       padding: 0.5rem 0.75rem;
-    }
-    .general-ranking-item:hover {
-      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      transition: background-color 0.2s ease;
     }
 
     .progress-container {
@@ -369,19 +595,11 @@
     }
 
     .pagination-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #e5e7eb;
       padding: 0.375rem 0.75rem;
       border-radius: 8px;
       font-size: 0.875rem;
       cursor: pointer;
       transition: all 0.2s;
-    }
-
-    .pagination-btn:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.25);
     }
 
     .pagination-btn:disabled {
@@ -391,18 +609,14 @@
 
     .page-info {
       font-size: 0.875rem;
-      color: #94a3b8;
       margin: 0 1rem;
     }
 
-    /* Estilos para las pestañas */
     .tab-navigation {
       display: flex;
-      background: rgba(255, 255, 255, 0.05);
       border-radius: 12px;
       padding: 4px;
       margin-bottom: 1.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .tab-button {
@@ -416,12 +630,6 @@
       position: relative;
     }
 
-    .tab-button.active {
-      background: rgba(59, 130, 246, 0.2);
-      color: #3b82f6;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    }
-
     .tab-button.active::after {
       content: '';
       position: absolute;
@@ -430,15 +638,17 @@
       transform: translateX(-50%);
       width: 40px;
       height: 4px;
-      background: #3b82f6;
       border-radius: 2px;
     }
 
-    .tab-button:hover:not(.active) {
-      background: rgba(255, 255, 255, 0.1);
+    .dark-mode .tab-button.active::after {
+      background: #3b82f6;
     }
 
-    /* Contenido de las pestañas */
+    .light-mode .tab-button.active::after {
+      background: #ffffff;
+    }
+
     .tab-content {
       display: none;
     }
@@ -447,11 +657,9 @@
       display: block;
     }
 
-    /* Estilos para tablas */
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      background: rgba(255, 255, 255, 0.03);
       border-radius: 12px;
       overflow: hidden;
       margin-top: 1rem;
@@ -461,19 +669,13 @@
     .data-table td {
       padding: 0.75rem 1rem;
       text-align: left;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .data-table th {
-      background: rgba(255, 255, 255, 0.05);
       font-weight: 600;
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-    }
-
-    .data-table tr:hover {
-      background: rgba(255, 255, 255, 0.05);
     }
 
     .data-table .agent-name {
@@ -483,6 +685,10 @@
     .data-table .points-cell {
       font-weight: 700;
       color: #3b82f6;
+    }
+
+    .light-mode .data-table .points-cell {
+      color: #764ba2;
     }
 
     .data-table th.date-header {
@@ -496,7 +702,6 @@
       text-align: center;
     }
 
-    /* Buscador */
     .search-container {
       margin-bottom: 1rem;
     }
@@ -504,25 +709,31 @@
     .search-input {
       width: 100%;
       padding: 0.5rem 1rem;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 8px;
-      color: #e5e7eb;
       font-size: 0.875rem;
+      transition: all 0.3s ease;
     }
 
     .search-input:focus {
       outline: none;
-      border-color: rgba(59, 130, 246, 0.5);
-      background: rgba(255, 255, 255, 0.12);
     }
 
-    .search-input::placeholder {
-      color: #94a3b8;
+    @media (min-width: 1920px) {
+      .container-custom { max-width: 1800px; }
+    }
+
+    @media (min-width: 1440px) and (max-width: 1919px) {
+      .container-custom { max-width: 1400px; }
     }
   </style>
 </head>
-<body>
+<body class="dark-mode">
+
+  <!-- Theme Toggle Button -->
+  <div class="theme-toggle" id="themeToggle">
+    <i data-lucide="sun" class="toggle-icon" id="themeIcon"></i>
+    <span class="toggle-text" id="themeText">Modo Claro</span>
+  </div>
 
   <!-- Fondo animado -->
   <div class="bg-animated"></div>
@@ -545,34 +756,34 @@
         <h1 class="text-6xl font-black mb-2 gradient-text leading-tight">
           Ranking de Excelencia
         </h1>
-        <p class="text-slate-400 text-xl font-medium">Reconocimiento a los mejores colaboradores del ciclo</p>
+        <p class="text-xl font-medium" style="color: inherit; opacity: 0.8;">Reconocimiento a los mejores colaboradores del ciclo</p>
       </header>
 
       <!-- KPIs Row -->
       <section class="grid grid-cols-4 gap-8 mb-8" id="kpi-row">
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-1">
           <i data-lucide="trending-up" class="w-10 h-10 text-cyan-400 icon-glow mb-4"></i>
-          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">Promedio Campaña</h4>
+          <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">Promedio Campaña</h4>
           <p class="text-3xl font-black text-cyan-400">244</p>
-          <p class="text-xs text-slate-500 font-medium">puntos totales</p>
+          <p class="text-xs font-medium" style="opacity: 0.6;">puntos totales</p>
         </div>
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-2">
           <i data-lucide="sparkles" class="w-10 h-10 text-green-400 icon-glow mb-4"></i>
-          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">% Excelencia</h4>
+          <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">% Excelencia</h4>
           <p class="text-3xl font-black text-green-400">0%</p>
-          <p class="text-xs text-slate-500 font-medium">de 900 pts</p>
+          <p class="text-xs font-medium" style="opacity: 0.6;">de 900 pts</p>
         </div>
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-3">
           <i data-lucide="alert-circle" class="w-10 h-10 text-yellow-400 icon-glow mb-4"></i>
-          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">En Riesgo</h4>
+          <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">En Riesgo</h4>
           <p class="text-3xl font-black text-yellow-400">10</p>
-          <p class="text-xs text-slate-500 font-medium">colaboradores</p>
+          <p class="text-xs font-medium" style="opacity: 0.6;">colaboradores</p>
         </div>
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-4">
           <i data-lucide="alert-triangle" class="w-10 h-10 text-red-400 icon-glow mb-4"></i>
-          <h4 class="text-slate-400 text-xs font-semibold mb-2 uppercase tracking-wider">Bajo Levantadas</h4>
+          <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">Bajo Levantadas</h4>
           <p class="text-3xl font-black text-red-400">10</p>
-          <p class="text-xs text-slate-500 font-medium">requiere atención</p>
+          <p class="text-xs font-medium" style="opacity: 0.6;">requiere atención</p>
         </div>
       </section>
 
@@ -588,7 +799,7 @@
               </div>
             </div>
             <h2 class="text-2xl font-black mb-1">SARITA MILAGROS RODRIGUEZ PALACIOS</h2>
-            <p class="text-slate-400 text-sm mb-4 font-medium">Segundo Lugar</p>
+            <p class="text-sm mb-4 font-medium" style="opacity: 0.7;">Segundo Lugar</p>
             <div class="medal-silver rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
               280 pts
             </div>
@@ -617,21 +828,21 @@
               </div>
             </div>
             <h2 class="text-2xl font-black mb-1">ALEXANDER AYRTON SALDIAS SANCHEZ</h2>
-            <p class="text-slate-400 text-sm mb-4 font-medium">Tercer Lugar</p>
+            <p class="text-sm mb-4 font-medium" style="opacity: 0.7;">Tercer Lugar</p>
             <div class="medal-bronze rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
               280 pts
             </div>
           </div>
         </div>
 
-        <!-- Ranking Top 10 Compacto (sin barras) -->
+        <!-- Ranking Top 10 Compacto -->
         <div class="col-span-4 glass-strong rounded-3xl p-6 card-interactive fade-in-5" id="ranking-section">
           <div class="flex items-center justify-between mb-4">
             <h3 class="text-xl font-bold flex items-center gap-2">
               <i data-lucide="bar-chart-3" class="w-5 h-5 text-blue-400 icon-glow"></i>
               Top 10 General
             </h3>
-            <span class="text-slate-400 text-xs font-medium" id="total-participants">
+            <span class="text-xs font-medium" style="opacity: 0.7;" id="total-participants">
               <i data-lucide="users" class="w-4 h-4 inline mr-1"></i>
               10 participantes
             </span>
@@ -659,7 +870,7 @@
                 <i data-lucide="users" class="w-5 h-5 text-indigo-400"></i>
                 Ranking General
               </h3>
-              <span class="text-slate-400 text-xs" id="general-total">Cargando…</span>
+              <span class="text-xs" style="opacity: 0.7;" id="general-total">Cargando…</span>
             </div>
             <div class="search-container">
               <input type="text" id="search-general" class="search-input" placeholder="Buscar por nombre...">
@@ -684,7 +895,7 @@
                 <i data-lucide="calendar-days" class="w-5 h-5 text-purple-400"></i>
                 Detallado por Fecha
               </h3>
-              <span class="text-slate-400 text-xs" id="by-date-total">Cargando…</span>
+              <span class="text-xs" style="opacity: 0.7;" id="by-date-total">Cargando…</span>
             </div>
             <div class="search-container">
               <input type="text" id="search-by-date" class="search-input" placeholder="Buscar por nombre...">
@@ -703,7 +914,7 @@
                 <i data-lucide="user" class="w-5 h-5 text-green-400"></i>
                 Detallado por Agente
               </h3>
-              <span class="text-slate-400 text-xs" id="by-agent-total">Cargando…</span>
+              <span class="text-xs" style="opacity: 0.7;" id="by-agent-total">Cargando…</span>
             </div>
             <div class="search-container">
               <input type="text" id="search-by-agent" class="search-input" placeholder="Buscar por nombre...">
@@ -716,12 +927,12 @@
       </section>
 
       <!-- Footer -->
-      <footer class="text-center pt-8 border-t border-white/5 fade-in">
-        <div class="flex items-center justify-center gap-3 text-slate-500 text-sm">
+      <footer class="text-center pt-8 border-t fade-in" style="border-color: rgba(255, 255, 255, 0.05);">
+        <div class="flex items-center justify-center gap-3 text-sm" style="opacity: 0.6;">
           <i data-lucide="clock" class="w-4 h-4"></i>
-          <p>Última actualización: <span id="last-updated" class="font-semibold text-slate-400">Cargando...</span></p>
+          <p>Última actualización: <span id="last-updated" class="font-semibold" style="opacity: 0.8;">Cargando...</span></p>
         </div>
-        <p class="text-slate-600 text-xs mt-2">Sistema de Gestión de Desempeño v2.0</p>
+        <p class="text-xs mt-2" style="opacity: 0.4;">Sistema de Gestión de Desempeño v2.0</p>
       </footer>
 
     </div>
@@ -735,6 +946,37 @@
     let agentDetailsData = [];
     let currentPage = 1;
     const ITEMS_PER_PAGE = 20;
+
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    const body = document.body;
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    body.className = savedTheme + '-mode';
+    updateThemeButton(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      body.className = newTheme + '-mode';
+      localStorage.setItem('theme', newTheme);
+      updateThemeButton(newTheme);
+    });
+
+    function updateThemeButton(theme) {
+      if (theme === 'dark') {
+        themeIcon.setAttribute('data-lucide', 'sun');
+        themeText.textContent = 'Modo Claro';
+      } else {
+        themeIcon.setAttribute('data-lucide', 'moon');
+        themeText.textContent = 'Modo Oscuro';
+      }
+      lucide.createIcons();
+    }
 
     // Función para formatear fechas
     function formatDate(dateStr) {
@@ -784,7 +1026,7 @@
         `;
       }).join('');
 
-      document.getElementById("general-ranking-list").innerHTML = html || `<div class="text-center py-6 text-slate-500">No hay datos</div>`;
+      document.getElementById("general-ranking-list").innerHTML = html || `<div class="text-center py-6" style="opacity: 0.6;">No hay datos</div>`;
       lucide.createIcons();
 
       // Actualizar paginación
@@ -1004,14 +1246,14 @@
         document.getElementById("podium-section").innerHTML = `<div class="col-span-3 glass rounded-3xl p-12 text-center">
           <i data-lucide="alert-circle" class="w-16 h-16 mx-auto mb-6 text-red-400"></i>
           <h2 class="text-2xl font-bold text-red-400 mb-3">Error de Conexión</h2>
-          <p class="text-slate-400 mb-4">${err.message}</p>
+          <p style="opacity: 0.7;" class="mb-4">${err.message}</p>
           <button onclick="location.reload()" class="glass-strong px-4 py-2 rounded-lg font-semibold text-sm hover:bg-white/10 transition-all">Reintentar</button>
         </div>`;
         lucide.createIcons();
       }
     }
 
-    // Funciones de renderizado existentes (podio, ranking top 10, etc.)
+    // Funciones de renderizado
     function renderPodium(ranking) {
       if (!ranking || ranking.length === 0) return;
       const champion = ranking[0] || { name: "—", points: 0 };
@@ -1019,7 +1261,6 @@
       const third = ranking[2] || { name: "—", points: 0 };
 
       const podiumHtml = `
-        <!-- Segundo Lugar -->
         <div class="glass card-interactive rounded-3xl p-8 text-center float-medium fade-in-2" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
           <div class="inline-block mb-4">
             <div class="w-20 h-20 rounded-full medal-silver flex items-center justify-center mx-auto">
@@ -1027,13 +1268,12 @@
             </div>
           </div>
           <h2 class="text-xl font-black mb-1">${second.name}</h2>
-          <p class="text-slate-400 text-sm mb-4 font-medium">Segundo Lugar</p>
+          <p class="text-sm mb-4 font-medium" style="opacity: 0.7;">Segundo Lugar</p>
           <div class="medal-silver rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
             ${Math.round(second.points)} pts
           </div>
         </div>
 
-        <!-- Primer Lugar -->
         <div class="glass-strong card-interactive rounded-3xl p-10 text-center relative pulse-champion fade-in-1" style="min-height: 450px; transform: scale(1.1); display: flex; flex-direction: column; justify-content: center;">
           <div class="champion-ribbon">⭐ CAMPEÓN</div>
           <div class="inline-block mb-4">
@@ -1048,7 +1288,6 @@
           </div>
         </div>
 
-        <!-- Tercer Lugar -->
         <div class="glass card-interactive rounded-3xl p-8 text-center float-fast fade-in-3" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
           <div class="inline-block mb-4">
             <div class="w-20 h-20 rounded-full medal-bronze flex items-center justify-center mx-auto">
@@ -1056,7 +1295,7 @@
             </div>
           </div>
           <h2 class="text-xl font-black mb-1">${third.name}</h2>
-          <p class="text-slate-400 text-sm mb-4 font-medium">Tercer Lugar</p>
+          <p class="text-sm mb-4 font-medium" style="opacity: 0.7;">Tercer Lugar</p>
           <div class="medal-bronze rounded-xl py-3 px-6 inline-block font-black text-2xl shadow-2xl">
             ${Math.round(third.points)} pts
           </div>
