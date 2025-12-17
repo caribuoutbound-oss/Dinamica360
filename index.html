@@ -447,8 +447,8 @@
       display: block;
     }
 
-    /* Estilos para la tabla por fecha */
-    .date-ranking-table {
+    /* Estilos para tablas */
+    .data-table {
       width: 100%;
       border-collapse: collapse;
       background: rgba(255, 255, 255, 0.03);
@@ -457,14 +457,14 @@
       margin-top: 1rem;
     }
 
-    .date-ranking-table th,
-    .date-ranking-table td {
+    .data-table th,
+    .data-table td {
       padding: 0.75rem 1rem;
       text-align: left;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .date-ranking-table th {
+    .data-table th {
       background: rgba(255, 255, 255, 0.05);
       font-weight: 600;
       font-size: 0.875rem;
@@ -472,34 +472,53 @@
       letter-spacing: 0.5px;
     }
 
-    .date-ranking-table tr:hover {
+    .data-table tr:hover {
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .date-ranking-table .agent-name {
+    .data-table .agent-name {
       font-weight: 600;
     }
 
-    .date-ranking-table .points-cell {
+    .data-table .points-cell {
       font-weight: 700;
       color: #3b82f6;
     }
 
-    /* Ajuste para encabezados de fecha más compactos */
-    .date-ranking-table th.date-header {
+    .data-table th.date-header {
       font-size: 0.75rem;
       white-space: nowrap;
       padding: 0.5rem 0.75rem;
       text-align: center;
     }
 
-    .date-ranking-table td.points-cell {
+    .data-table td.points-cell {
       text-align: center;
     }
 
-    /* Eliminar el botón de descarga */
-    .download-button {
-      display: none;
+    /* Buscador */
+    .search-container {
+      margin-bottom: 1rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-size: 0.875rem;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: rgba(59, 130, 246, 0.5);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .search-input::placeholder {
+      color: #94a3b8;
     }
   </style>
 </head>
@@ -629,6 +648,7 @@
         <div class="tab-navigation">
           <div class="tab-button active" data-tab="general">Ranking General</div>
           <div class="tab-button" data-tab="by-date">Detallado por Fecha</div>
+          <div class="tab-button" data-tab="by-agent">Detallado por Agente</div>
         </div>
 
         <!-- Contenido de la Pestaña General -->
@@ -641,7 +661,9 @@
               </h3>
               <span class="text-slate-400 text-xs" id="general-total">Cargando…</span>
             </div>
-
+            <div class="search-container">
+              <input type="text" id="search-general" class="search-input" placeholder="Buscar por nombre...">
+            </div>
             <div id="general-ranking-list" class="space-y-2 mb-4">
               <!-- Lista paginada -->
             </div>
@@ -664,8 +686,29 @@
               </h3>
               <span class="text-slate-400 text-xs" id="by-date-total">Cargando…</span>
             </div>
-
+            <div class="search-container">
+              <input type="text" id="search-by-date" class="search-input" placeholder="Buscar por nombre...">
+            </div>
             <div id="date-ranking-table-container">
+              <!-- Tabla renderizada dinámicamente -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Contenido de la Pestaña Por Agente -->
+        <div id="tab-by-agent" class="tab-content">
+          <div class="glass-strong rounded-3xl p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="text-xl font-bold flex items-center gap-2">
+                <i data-lucide="user" class="w-5 h-5 text-green-400"></i>
+                Detallado por Agente
+              </h3>
+              <span class="text-slate-400 text-xs" id="by-agent-total">Cargando…</span>
+            </div>
+            <div class="search-container">
+              <input type="text" id="search-by-agent" class="search-input" placeholder="Buscar por nombre...">
+            </div>
+            <div id="agent-details-table-container">
               <!-- Tabla renderizada dinámicamente -->
             </div>
           </div>
@@ -688,10 +731,193 @@
     const API_URL = "https://script.google.com/macros/s/AKfycbz6ja1O0AwvYBVfIn4ik9Q5VBp_Lj7P1qWMG9xIFuFSiCe8RDFrl7fqYH8IgDGCXys/exec";
 
     let allRankingData = [];
-    let dateRankingData = []; // Nuevo: Datos agrupados por fecha
+    let dateRankingData = [];
+    let agentDetailsData = [];
     let currentPage = 1;
     const ITEMS_PER_PAGE = 20;
 
+    // Función para formatear fechas
+    function formatDate(dateStr) {
+      if (!dateStr) return "Fecha Inválida";
+      const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return dateStr;
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+
+    // Función para filtrar por búsqueda
+    function filterTable(list, searchTerm, nameProperty = 'name') {
+      if (!searchTerm) return list;
+      const term = searchTerm.toLowerCase();
+      return list.filter(item => item[nameProperty].toLowerCase().includes(term));
+    }
+
+    // Función para renderizar ranking general con búsqueda y paginación
+    function renderGeneralRankingPage(page, searchTerm = '') {
+      const filteredData = filterTable(allRankingData, searchTerm);
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+      const pageData = filteredData.slice(start, end);
+      const maxPoints = allRankingData[0]?.points || 100;
+
+      const html = pageData.map((p, idx) => {
+        const globalRank = start + idx + 1;
+        const width = Math.min(100, (p.points / maxPoints) * 100);
+        let badgeClass = "bg-white/5 text-slate-400";
+        if (globalRank === 1) badgeClass = "bg-yellow-500/20 text-yellow-400";
+        else if (globalRank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
+        else if (globalRank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
+
+        return `
+          <div class="general-ranking-item rounded-lg transition-all duration-200">
+            <div class="flex items-center gap-3">
+              <span class="rank-badge ${badgeClass}">${globalRank}</span>
+              <span class="flex-1 text-sm font-medium">${p.name}</span>
+              <span class="font-semibold text-sm">${Math.round(p.points)}</span>
+            </div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: ${width}%;"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById("general-ranking-list").innerHTML = html || `<div class="text-center py-6 text-slate-500">No hay datos</div>`;
+      lucide.createIcons();
+
+      // Actualizar paginación
+      const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+      document.getElementById("page-info").textContent = `Página ${currentPage} de ${totalPages}`;
+      document.getElementById("prev-page").disabled = currentPage === 1;
+      document.getElementById("next-page").disabled = currentPage >= totalPages;
+    }
+
+    // Función para renderizar tabla por fecha con búsqueda
+    function renderDateTable(dates, searchTerm = '') {
+      const filteredData = filterTable(dateRankingData, searchTerm);
+      let theadHtml = `<tr><th>Agente</th>`;
+      dates.forEach(date => {
+        const formattedDate = formatDate(date);
+        theadHtml += `<th class="date-header">${formattedDate}</th>`;
+      });
+      theadHtml += `</tr>`;
+
+      let tbodyHtml = '';
+      filteredData.forEach(agent => {
+        let rowHtml = `<tr><td class="agent-name">${agent.name}</td>`;
+        dates.forEach(date => {
+          const points = agent.dates[date] || 0;
+          rowHtml += `<td class="points-cell">${Math.round(points)}</td>`;
+        });
+        rowHtml += `</tr>`;
+        tbodyHtml += rowHtml;
+      });
+
+      const tableHtml = `
+        <table class="data-table">
+          <thead>${theadHtml}</thead>
+          <tbody>${tbodyHtml}</tbody>
+        </table>
+      `;
+      document.getElementById("date-ranking-table-container").innerHTML = tableHtml;
+      lucide.createIcons();
+    }
+
+    // Función para renderizar tabla por agente con búsqueda
+    function renderAgentDetailsTable(searchTerm = '') {
+      const filteredData = filterTable(agentDetailsData, searchTerm);
+      let theadHtml = `<tr>
+        <th>NOMBRE_COMPLETO</th>
+        <th>Aprobadas</th>
+        <th>Q_Arpu_Mayor_8</th>
+        <th>Puntos_dia</th>
+        <th>Puntos_Adicionales</th>
+      </tr>`;
+
+      let tbodyHtml = '';
+      filteredData.forEach(agent => {
+        tbodyHtml += `<tr>
+          <td class="agent-name">${agent.name}</td>
+          <td class="points-cell">${Math.round(agent.Aprobadas)}</td>
+          <td class="points-cell">${Math.round(agent.Q_Arpu_Mayor_8)}</td>
+          <td class="points-cell">${Math.round(agent.Puntos_dia)}</td>
+          <td class="points-cell">${Math.round(agent.Puntos_Adicionales)}</td>
+        </tr>`;
+      });
+
+      const tableHtml = `
+        <table class="data-table">
+          <thead>${theadHtml}</thead>
+          <tbody>${tbodyHtml}</tbody>
+        </table>
+      `;
+      document.getElementById("agent-details-table-container").innerHTML = tableHtml;
+      lucide.createIcons();
+    }
+
+    // Funciones de actualización
+    function updateGeneralTotal() {
+      document.getElementById("general-total").textContent = `${allRankingData.length} colaboradores`;
+    }
+
+    function updateDateTotal(numDates) {
+      document.getElementById("by-date-total").textContent = `${numDates} fechas registradas`;
+    }
+
+    function updateAgentTotal() {
+      document.getElementById("by-agent-total").textContent = `${agentDetailsData.length} agentes registrados`;
+    }
+
+    // Función para inicializar eventos de búsqueda
+    function initSearch() {
+      document.getElementById('search-general').addEventListener('input', (e) => {
+        currentPage = 1;
+        renderGeneralRankingPage(currentPage, e.target.value);
+      });
+
+      document.getElementById('search-by-date').addEventListener('input', (e) => {
+        renderDateTable(sortedDatesCache, e.target.value);
+      });
+
+      document.getElementById('search-by-agent').addEventListener('input', (e) => {
+        renderAgentDetailsTable(e.target.value);
+      });
+    }
+
+    // Función para inicializar pestañas
+    function initTabNavigation() {
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const tabId = button.getAttribute('data-tab');
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          button.classList.add('active');
+          document.getElementById(`tab-${tabId}`).classList.add('active');
+        });
+      });
+    }
+
+    // Función para actualizar última actualización
+    function updateLastUpdated() {
+      const now = new Date().toLocaleString('es-ES', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+      document.getElementById("last-updated").textContent = now;
+    }
+
+    // Cache para fechas ordenadas
+    let sortedDatesCache = [];
+
+    // Función principal para cargar datos
     async function fetchAllRanking() {
       try {
         const res = await fetch(API_URL);
@@ -704,7 +930,6 @@
         for (const row of data) {
           const name = row.NOMBRE_COMPLETO || "Sin nombre";
           const points = parseFloat(row.Puntos_Total) || 0;
-
           if (!groupedByAgent[name]) {
             groupedByAgent[name] = { name, points: 0 };
           }
@@ -712,13 +937,12 @@
         }
         allRankingData = Object.values(groupedByAgent).sort((a, b) => b.points - a.points);
 
-        // Agrupar por nombre y fecha para la tabla detallada
+        // Agrupar por nombre y fecha
         const groupedByDate = {};
         for (const row of data) {
           const name = row.NOMBRE_COMPLETO || "Sin nombre";
           const date = row.Fecha || "Sin Fecha";
           const points = parseFloat(row.Puntos_Total) || 0;
-
           if (!groupedByDate[name]) {
             groupedByDate[name] = { name, dates: {} };
           }
@@ -729,32 +953,51 @@
         }
         dateRankingData = Object.values(groupedByDate);
 
-        // Obtener todas las fechas únicas
+        // Agrupar por agente con nuevas columnas
+        const groupedByAgentDetails = {};
+        for (const row of data) {
+          const name = row.NOMBRE_COMPLETO || "Sin nombre";
+          const aprobadas = parseFloat(row.Aprobadas) || 0;
+          const qArpu = parseFloat(row.Q_Arpu_Mayor_8) || 0;
+          const puntosDia = parseFloat(row.Puntos_dia) || 0;
+          const puntosAdicionales = parseFloat(row.Puntos_Adicionales) || 0;
+
+          if (!groupedByAgentDetails[name]) {
+            groupedByAgentDetails[name] = {
+              name,
+              Aprobadas: 0,
+              Q_Arpu_Mayor_8: 0,
+              Puntos_dia: 0,
+              Puntos_Adicionales: 0
+            };
+          }
+          groupedByAgentDetails[name].Aprobadas += aprobadas;
+          groupedByAgentDetails[name].Q_Arpu_Mayor_8 += qArpu;
+          groupedByAgentDetails[name].Puntos_dia += puntosDia;
+          groupedByAgentDetails[name].Puntos_Adicionales += puntosAdicionales;
+        }
+        agentDetailsData = Object.values(groupedByAgentDetails);
+
+        // Obtener y ordenar fechas
         const allDates = new Set();
         for (const agent of dateRankingData) {
           for (const date in agent.dates) {
             allDates.add(date);
           }
         }
-        // Ordenar las fechas
-        const sortedDates = Array.from(allDates).sort((a, b) => {
-          // Convertir a objetos Date para comparar correctamente
-          const dateA = new Date(a);
-          const dateB = new Date(b);
-          return dateA - dateB;
-        });
+        sortedDatesCache = Array.from(allDates).sort((a, b) => new Date(a) - new Date(b));
 
         // Renderizar todo
         renderPodium(allRankingData.slice(0, 3));
         renderRanking(allRankingData.slice(0, 10));
         renderGeneralRankingPage(1);
+        renderDateTable(sortedDatesCache);
+        renderAgentDetailsTable();
         updateGeneralTotal();
-        updatePagination();
-        renderDateTable(sortedDates);
-        updateDateTotal(sortedDates.length);
+        updateDateTotal(sortedDatesCache.length);
+        updateAgentTotal();
         updateLastUpdated();
-
-        // Inicializar eventos de pestañas
+        initSearch();
         initTabNavigation();
       } catch (err) {
         console.error('Error al cargar:', err);
@@ -768,6 +1011,7 @@
       }
     }
 
+    // Funciones de renderizado existentes (podio, ranking top 10, etc.)
     function renderPodium(ranking) {
       if (!ranking || ranking.length === 0) return;
       const champion = ranking[0] || { name: "—", points: 0 };
@@ -847,154 +1091,28 @@
       lucide.createIcons();
     }
 
-    function renderGeneralRankingPage(page) {
-      const start = (page - 1) * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
-      const pageData = allRankingData.slice(start, end);
-
-      const maxPoints = allRankingData[0]?.points || 100;
-      const html = pageData.map((p, idx) => {
-        const globalRank = start + idx + 1;
-        const width = Math.min(100, (p.points / maxPoints) * 100);
-        let badgeClass = "bg-white/5 text-slate-400";
-        if (globalRank === 1) badgeClass = "bg-yellow-500/20 text-yellow-400";
-        else if (globalRank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
-        else if (globalRank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
-
-        return `
-          <div class="general-ranking-item rounded-lg transition-all duration-200">
-            <div class="flex items-center gap-3">
-              <span class="rank-badge ${badgeClass}">${globalRank}</span>
-              <span class="flex-1 text-sm font-medium">${p.name}</span>
-              <span class="font-semibold text-sm">${Math.round(p.points)}</span>
-            </div>
-            <div class="progress-container">
-              <div class="progress-bar" style="width: ${width}%;"></div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-      document.getElementById("general-ranking-list").innerHTML = html || `<div class="text-center py-6 text-slate-500">No hay datos</div>`;
-      lucide.createIcons();
-    }
-
-    function updateGeneralTotal() {
-      document.getElementById("general-total").textContent = `${allRankingData.length} colaboradores`;
-    }
-
-    function updatePagination() {
-      const totalPages = Math.ceil(allRankingData.length / ITEMS_PER_PAGE);
-      document.getElementById("page-info").textContent = `Página ${currentPage} de ${totalPages}`;
-
-      document.getElementById("prev-page").disabled = currentPage === 1;
-      document.getElementById("next-page").disabled = currentPage >= totalPages;
-    }
-
+    // Eventos de paginación
     document.getElementById("prev-page").addEventListener("click", () => {
       if (currentPage > 1) {
         currentPage--;
-        renderGeneralRankingPage(currentPage);
-        updatePagination();
+        const searchTerm = document.getElementById('search-general').value;
+        renderGeneralRankingPage(currentPage, searchTerm);
       }
     });
 
     document.getElementById("next-page").addEventListener("click", () => {
-      const totalPages = Math.ceil(allRankingData.length / ITEMS_PER_PAGE);
+      const searchTerm = document.getElementById('search-general').value;
+      const filteredData = filterTable(allRankingData, searchTerm);
+      const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
       if (currentPage < totalPages) {
         currentPage++;
-        renderGeneralRankingPage(currentPage);
-        updatePagination();
+        renderGeneralRankingPage(currentPage, searchTerm);
       }
     });
 
-    function renderDateTable(dates) {
-      // Función auxiliar para formatear la fecha a DD/MM/YYYY
-      function formatDate(dateStr) {
-        if (!dateStr) return "Fecha Inválida";
-        // Intentar parsear la fecha
-        const date = new Date(dateStr);
-        if (isNaN(date.getTime())) {
-          // Si no se puede parsear, devolver la cadena original
-          return dateStr;
-        }
-        // Formatear a DD/MM/YYYY
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexados
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-      }
-
-      // Crear encabezado de la tabla
-      let theadHtml = `<tr><th>Agente</th>`;
-      dates.forEach(date => {
-        // Formatear la fecha
-        const formattedDate = formatDate(date);
-        theadHtml += `<th class="date-header">${formattedDate}</th>`;
-      });
-      theadHtml += `</tr>`;
-
-      // Crear cuerpo de la tabla
-      let tbodyHtml = '';
-      dateRankingData.forEach(agent => {
-        let rowHtml = `<tr><td class="agent-name">${agent.name}</td>`;
-        dates.forEach(date => {
-          const points = agent.dates[date] || 0;
-          rowHtml += `<td class="points-cell">${Math.round(points)}</td>`;
-        });
-        rowHtml += `</tr>`;
-        tbodyHtml += rowHtml;
-      });
-
-      const tableHtml = `
-        <table class="date-ranking-table">
-          <thead>${theadHtml}</thead>
-          <tbody>${tbodyHtml}</tbody>
-        </table>
-      `;
-
-      document.getElementById("date-ranking-table-container").innerHTML = tableHtml;
-      lucide.createIcons();
-    }
-
-    function updateDateTotal(numDates) {
-      document.getElementById("by-date-total").textContent = `${numDates} fechas registradas`;
-    }
-
-    function initTabNavigation() {
-      const tabButtons = document.querySelectorAll('.tab-button');
-      const tabContents = document.querySelectorAll('.tab-content');
-
-      tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const tabId = button.getAttribute('data-tab');
-
-          // Remover clase 'active' de todos los botones y contenidos
-          tabButtons.forEach(btn => btn.classList.remove('active'));
-          tabContents.forEach(content => content.classList.remove('active'));
-
-          // Añadir clase 'active' al botón y contenido seleccionado
-          button.classList.add('active');
-          document.getElementById(`tab-${tabId}`).classList.add('active');
-        });
-      });
-    }
-
-    function updateLastUpdated() {
-      const now = new Date().toLocaleString('es-ES', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
-      });
-      document.getElementById("last-updated").textContent = now;
-    }
-
+    // Inicialización
     async function init() {
       await fetchAllRanking();
-
-      // Actualización periódica cada 5 minutos
       setInterval(async () => {
         try {
           await fetchAllRanking();
