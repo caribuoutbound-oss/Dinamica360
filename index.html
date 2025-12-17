@@ -4,31 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ranking de Excelencia | Dashboard Ejecutivo</title>
-
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- Google Font: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    
     body {
       font-family: 'Inter', sans-serif;
       overflow-x: hidden;
       transition: background-color 0.5s ease, color 0.5s ease;
     }
-
     /* ============ MODO OSCURO (DEFAULT) ============ */
     body.dark-mode {
       background: #050816;
       color: #e5e7eb;
     }
-
     .dark-mode .bg-animated {
       position: fixed;
       top: 0;
@@ -43,71 +36,58 @@
         linear-gradient(180deg, #0a0e27 0%, #050816 100%);
       animation: gradientPulse 20s ease infinite;
     }
-
     .dark-mode .glass {
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.1);
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
     }
-
     .dark-mode .glass-strong {
       background: rgba(255, 255, 255, 0.06);
       backdrop-filter: blur(28px) saturate(200%);
       border: 1px solid rgba(255, 255, 255, 0.15);
     }
-
     .dark-mode .gradient-text {
       background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #ec4899 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .dark-mode .search-input {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #e5e7eb;
     }
-
     .dark-mode .search-input::placeholder {
       color: #94a3b8;
     }
-
     .dark-mode .tab-navigation {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
     .dark-mode .tab-button.active {
       background: rgba(59, 130, 246, 0.2);
       color: #3b82f6;
     }
-
     .dark-mode .pagination-btn {
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #e5e7eb;
     }
-
     .dark-mode .data-table {
       background: rgba(255, 255, 255, 0.03);
     }
-
     .dark-mode .data-table th {
       background: rgba(255, 255, 255, 0.05);
     }
-
     .dark-mode .data-table td {
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-
     /* ============ MODO CLARO (LIGHT) ============ */
     body.light-mode {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       color: #1e293b;
     }
-
     .light-mode .bg-animated {
       position: fixed;
       top: 0;
@@ -122,127 +102,103 @@
         linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       animation: gradientPulse 15s ease infinite;
     }
-
     .light-mode .glass {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px) saturate(180%);
       border: 2px solid rgba(255, 255, 255, 0.8);
       box-shadow: 0 15px 50px rgba(102, 126, 234, 0.3), inset 0 1px 0 0 rgba(255, 255, 255, 1);
     }
-
     .light-mode .glass-strong {
       background: rgba(255, 255, 255, 0.98);
       backdrop-filter: blur(25px) saturate(200%);
       border: 2px solid rgba(255, 255, 255, 1);
       box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
     }
-
     .light-mode .gradient-text {
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #ffd700 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-
     .light-mode .kpi-card {
       background: rgba(255, 255, 255, 0.9);
       border: 2px solid rgba(255, 255, 255, 0.9);
       box-shadow: 0 10px 40px rgba(102, 126, 234, 0.25);
     }
-
     .light-mode .kpi-card:hover {
       background: rgba(255, 255, 255, 1);
       box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
     }
-
     .light-mode .search-input {
       background: rgba(255, 255, 255, 0.9);
       border: 2px solid rgba(102, 126, 234, 0.3);
       color: #1e293b;
     }
-
     .light-mode .search-input:focus {
       border-color: rgba(102, 126, 234, 0.6);
       background: rgba(255, 255, 255, 1);
     }
-
     .light-mode .search-input::placeholder {
       color: #64748b;
     }
-
     .light-mode .tab-navigation {
       background: rgba(255, 255, 255, 0.8);
       border: 2px solid rgba(255, 255, 255, 0.9);
       box-shadow: 0 8px 30px rgba(102, 126, 234, 0.2);
     }
-
     .light-mode .tab-button {
       color: #475569;
     }
-
     .light-mode .tab-button.active {
       background: linear-gradient(135deg, #667eea, #764ba2);
       color: #ffffff;
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
     }
-
     .light-mode .pagination-btn {
       background: rgba(255, 255, 255, 0.9);
       border: 2px solid rgba(102, 126, 234, 0.3);
       color: #1e293b;
     }
-
     .light-mode .pagination-btn:hover:not(:disabled) {
       background: rgba(255, 255, 255, 1);
       border-color: rgba(102, 126, 234, 0.6);
       box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
     }
-
     .light-mode .data-table {
       background: rgba(255, 255, 255, 0.95);
       box-shadow: 0 10px 40px rgba(102, 126, 234, 0.2);
     }
-
     .light-mode .data-table th {
       background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
       color: #1e293b;
     }
-
     .light-mode .data-table td {
       border-bottom: 1px solid rgba(102, 126, 234, 0.1);
       color: #334155;
     }
-
     .light-mode .data-table tr:hover {
       background: rgba(102, 126, 234, 0.08);
     }
-
     .light-mode .general-ranking-item:hover {
       background-color: rgba(102, 126, 234, 0.1) !important;
     }
-
     .light-mode .compact-ranking-item:hover {
       background-color: rgba(102, 126, 234, 0.1) !important;
     }
-
     .light-mode .progress-container {
       background: rgba(102, 126, 234, 0.15);
     }
-
     .light-mode .progress-bar {
       background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
     }
-
     .light-mode .page-info {
       color: #475569;
     }
-
     .light-mode .text-slate-400,
     .light-mode .text-slate-500,
     .light-mode .text-slate-600 {
       color: #475569 !important;
     }
-
     /* Toggle Button Styles */
     .theme-toggle {
       position: fixed;
@@ -261,48 +217,39 @@
       gap: 0.75rem;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     }
-
     .theme-toggle:hover {
       transform: translateY(-2px) scale(1.05);
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
     }
-
     .light-mode .theme-toggle {
       background: rgba(255, 255, 255, 0.95);
       border: 2px solid rgba(255, 255, 255, 1);
       box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
     }
-
     .light-mode .theme-toggle:hover {
       box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
     }
-
     .toggle-icon {
       width: 24px;
       height: 24px;
       transition: all 0.4s ease;
     }
-
     .toggle-text {
       font-weight: 600;
       font-size: 0.875rem;
       letter-spacing: 0.5px;
     }
-
     .dark-mode .toggle-text {
       color: #e5e7eb;
     }
-
     .light-mode .toggle-text {
       color: #1e293b;
     }
-
     /* Animaciones compartidas */
     @keyframes gradientPulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.9; }
     }
-
     .particle {
       position: absolute;
       width: 4px;
@@ -311,26 +258,21 @@
       border-radius: 50%;
       animation: float-particle 20s infinite;
     }
-
     .light-mode .particle {
       background: rgba(255, 215, 0, 0.4);
     }
-
     @keyframes float-particle {
       0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
       10% { opacity: 0.5; }
       50% { transform: translateY(-100vh) translateX(50px); opacity: 0.8; }
       90% { opacity: 0.3; }
     }
-
     .glass {
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-
     .glass:hover {
       transform: translateY(-2px);
     }
-
     .medal-gold {
       background: linear-gradient(145deg, #ffd700 0%, #ffed4e 45%, #ffd700 90%);
       color: #78350f;
@@ -341,7 +283,6 @@
         inset 0 -2px 5px rgba(0, 0, 0, 0.2);
       position: relative;
     }
-
     .medal-gold::after {
       content: '';
       position: absolute;
@@ -352,7 +293,6 @@
       background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
       border-radius: 50%;
     }
-
     .medal-silver {
       background: linear-gradient(145deg, #f0f0f0 0%, #ffffff 45%, #d8d8d8 90%);
       color: #1e293b;
@@ -363,7 +303,6 @@
         inset 0 -2px 5px rgba(0, 0, 0, 0.15);
       position: relative;
     }
-
     .medal-silver::after {
       content: '';
       position: absolute;
@@ -374,7 +313,6 @@
       background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, transparent 70%);
       border-radius: 50%;
     }
-
     .medal-bronze {
       background: linear-gradient(145deg, #cd7f32 0%, #f4a460 45%, #b87333 90%);
       color: #451a03;
@@ -385,7 +323,6 @@
         inset 0 -2px 5px rgba(0, 0, 0, 0.2);
       position: relative;
     }
-
     .medal-bronze::after {
       content: '';
       position: absolute;
@@ -396,30 +333,24 @@
       background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
       border-radius: 50%;
     }
-
     .float-slow { animation: floatSlow 7s ease-in-out infinite; }
     .float-medium { animation: floatMedium 6s ease-in-out infinite; }
     .float-fast { animation: floatFast 5s ease-in-out infinite; }
-
     @keyframes floatSlow {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-15px) rotate(2deg); }
     }
-
     @keyframes floatMedium {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       50% { transform: translateY(-12px) rotate(-1deg); }
     }
-
     @keyframes floatFast {
       0%, 100% { transform: translateY(0) scale(1); }
       50% { transform: translateY(-10px) scale(1.03); }
     }
-
     .pulse-champion {
       animation: pulseChampion 4s ease-in-out infinite;
     }
-
     @keyframes pulseChampion {
       0%, 100% { 
         box-shadow: 0 0 50px rgba(255, 215, 0, 0.7), 0 15px 40px rgba(255, 215, 0, 0.4);
@@ -430,7 +361,6 @@
         transform: scale(1.02);
       }
     }
-
     .kpi-card {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(20px);
@@ -441,7 +371,6 @@
       position: relative;
       overflow: hidden;
     }
-
     .kpi-card::before {
       content: '';
       position: absolute;
@@ -452,22 +381,18 @@
       background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
       transition: left 0.6s ease;
     }
-
     .kpi-card:hover::before {
       left: 100%;
     }
-
     .kpi-card:hover {
       transform: translateY(-6px) scale(1.02);
       border-color: rgba(255, 255, 255, 0.25);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-
     .fade-in {
       animation: fadeInUp 0.8s ease-out forwards;
       opacity: 0;
     }
-
     @keyframes fadeInUp {
       from {
         opacity: 0;
@@ -478,27 +403,22 @@
         transform: translateY(0);
       }
     }
-
     .fade-in-1 { animation-delay: 0.1s; }
     .fade-in-2 { animation-delay: 0.2s; }
     .fade-in-3 { animation-delay: 0.3s; }
     .fade-in-4 { animation-delay: 0.4s; }
     .fade-in-5 { animation-delay: 0.5s; }
-
     .icon-glow {
       filter: drop-shadow(0 0 10px currentColor);
       transition: filter 0.3s ease;
     }
-
     .icon-glow:hover {
       filter: drop-shadow(0 0 15px currentColor);
     }
-
     @keyframes gradientShift {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
     }
-
     .champion-ribbon {
       position: absolute;
       top: -8px;
@@ -514,7 +434,6 @@
       border-radius: 8px;
       text-transform: uppercase;
     }
-
     .rank-badge {
       display: inline-flex;
       align-items: center;
@@ -526,51 +445,42 @@
       font-size: 0.875rem;
       transition: all 0.3s ease;
     }
-
     .rank-badge:hover {
       transform: scale(1.15) rotate(5deg);
     }
-
     .card-interactive {
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
     }
-
     .card-interactive:hover {
       transform: translateY(-10px) scale(1.03);
     }
-
     .dark-mode .card-interactive:hover {
       box-shadow: 
         0 25px 70px rgba(59, 130, 246, 0.35),
         0 0 50px rgba(139, 92, 246, 0.25);
       border-color: rgba(255, 255, 255, 0.3);
     }
-
     .light-mode .card-interactive:hover {
       box-shadow: 
         0 25px 70px rgba(102, 126, 234, 0.4),
         0 0 50px rgba(240, 147, 251, 0.3);
       border-color: rgba(255, 255, 255, 1);
     }
-
     .compact-ranking-item {
       padding: 0.375rem 0.5rem !important;
       min-height: auto !important;
       border-radius: 8px;
       transition: background-color 0.2s ease;
     }
-
     .compact-ranking-text {
       font-size: 0.8125rem !important;
     }
-
     .general-ranking-item {
       padding: 0.5rem 0.75rem;
       border-radius: 8px;
       transition: background-color 0.2s ease;
     }
-
     .progress-container {
       height: 6px;
       background: rgba(255, 255, 255, 0.05);
@@ -578,14 +488,12 @@
       overflow: hidden;
       margin-top: 4px;
     }
-
     .progress-bar {
       height: 100%;
       border-radius: 999px;
       background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
       transition: width 0.6s ease;
     }
-
     .pagination {
       display: flex;
       justify-content: center;
@@ -593,7 +501,6 @@
       gap: 0.75rem;
       margin-top: 1.5rem;
     }
-
     .pagination-btn {
       padding: 0.375rem 0.75rem;
       border-radius: 8px;
@@ -601,24 +508,20 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-
     .pagination-btn:disabled {
       opacity: 0.5;
       cursor: not-allowed;
     }
-
     .page-info {
       font-size: 0.875rem;
       margin: 0 1rem;
     }
-
     .tab-navigation {
       display: flex;
       border-radius: 12px;
       padding: 4px;
       margin-bottom: 1.5rem;
     }
-
     .tab-button {
       flex: 1;
       padding: 0.75rem 1rem;
@@ -629,7 +532,6 @@
       transition: all 0.3s ease;
       position: relative;
     }
-
     .tab-button.active::after {
       content: '';
       position: absolute;
@@ -640,23 +542,18 @@
       height: 4px;
       border-radius: 2px;
     }
-
     .dark-mode .tab-button.active::after {
       background: #3b82f6;
     }
-
     .light-mode .tab-button.active::after {
       background: #ffffff;
     }
-
     .tab-content {
       display: none;
     }
-
     .tab-content.active {
       display: block;
     }
-
     .data-table {
       width: 100%;
       border-collapse: collapse;
@@ -664,48 +561,39 @@
       overflow: hidden;
       margin-top: 1rem;
     }
-
     .data-table th,
     .data-table td {
       padding: 0.75rem 1rem;
       text-align: left;
     }
-
     .data-table th {
       font-weight: 600;
       font-size: 0.875rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-
     .data-table .agent-name {
       font-weight: 600;
     }
-
     .data-table .points-cell {
       font-weight: 700;
       color: #3b82f6;
     }
-
     .light-mode .data-table .points-cell {
       color: #764ba2;
     }
-
     .data-table th.date-header {
       font-size: 0.75rem;
       white-space: nowrap;
       padding: 0.5rem 0.75rem;
       text-align: center;
     }
-
     .data-table td.points-cell {
       text-align: center;
     }
-
     .search-container {
       margin-bottom: 1rem;
     }
-
     .search-input {
       width: 100%;
       padding: 0.5rem 1rem;
@@ -713,31 +601,25 @@
       font-size: 0.875rem;
       transition: all 0.3s ease;
     }
-
     .search-input:focus {
       outline: none;
     }
-
     @media (min-width: 1920px) {
       .container-custom { max-width: 1800px; }
     }
-
     @media (min-width: 1440px) and (max-width: 1919px) {
       .container-custom { max-width: 1400px; }
     }
   </style>
 </head>
 <body class="dark-mode">
-
   <!-- Theme Toggle Button -->
   <div class="theme-toggle" id="themeToggle">
     <i data-lucide="sun" class="toggle-icon" id="themeIcon"></i>
     <span class="toggle-text" id="themeText">Modo Claro</span>
   </div>
-
   <!-- Fondo animado -->
   <div class="bg-animated"></div>
-
   <!-- Partículas flotantes -->
   <div style="position: fixed; inset: 0; pointer-events: none; z-index: 0;">
     <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
@@ -746,47 +628,43 @@
     <div class="particle" style="left: 65%; animation-delay: 9s;"></div>
     <div class="particle" style="left: 85%; animation-delay: 12s;"></div>
   </div>
-
   <!-- Contenedor principal -->
   <div style="position: relative; z-index: 1; min-height: 100vh; padding: 2rem 0;">
     <div class="container-custom mx-auto px-8" style="max-width: 1600px;">
-
       <!-- Header Premium -->
       <header class="text-center mb-8 fade-in">
         <h1 class="text-6xl font-black mb-2 gradient-text leading-tight">
           Ranking de Excelencia
         </h1>
-        <p class="text-xl font-medium" style="color: inherit; opacity: 0.8;">Reconocimiento a los mejores colaboradores del ciclo</p>
+        <p class="text-xl font-medium" style="color: inherit; opacity: 0.8;">Reconocimiento a los mejores colaboradores de la dinámica</p>
       </header>
-
       <!-- KPIs Row -->
       <section class="grid grid-cols-4 gap-8 mb-8" id="kpi-row">
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-1">
           <i data-lucide="trending-up" class="w-10 h-10 text-cyan-400 icon-glow mb-4"></i>
           <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">Promedio Campaña</h4>
-          <p class="text-3xl font-black text-cyan-400">244</p>
+          <p class="text-3xl font-black text-cyan-400" id="kpi-promedio">—</p>
           <p class="text-xs font-medium" style="opacity: 0.6;">puntos totales</p>
         </div>
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-2">
           <i data-lucide="sparkles" class="w-10 h-10 text-green-400 icon-glow mb-4"></i>
           <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">% Excelencia</h4>
-          <p class="text-3xl font-black text-green-400">0%</p>
+          <p class="text-3xl font-black text-green-400" id="kpi-excelencia">—</p>
           <p class="text-xs font-medium" style="opacity: 0.6;">de 900 pts</p>
         </div>
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-3">
           <i data-lucide="alert-circle" class="w-10 h-10 text-yellow-400 icon-glow mb-4"></i>
           <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">En Riesgo</h4>
-          <p class="text-3xl font-black text-yellow-400">10</p>
+          <p class="text-3xl font-black text-yellow-400" id="kpi-riesgo">—</p>
           <p class="text-xs font-medium" style="opacity: 0.6;">colaboradores</p>
         </div>
         <div class="kpi-card flex flex-col items-center justify-center p-6 fade-in-4">
           <i data-lucide="alert-triangle" class="w-10 h-10 text-red-400 icon-glow mb-4"></i>
           <h4 class="text-xs font-semibold mb-2 uppercase tracking-wider" style="opacity: 0.7;">Bajo Levantadas</h4>
-          <p class="text-3xl font-black text-red-400">10</p>
+          <p class="text-3xl font-black text-red-400" id="kpi-bajo">—</p>
           <p class="text-xs font-medium" style="opacity: 0.6;">requiere atención</p>
         </div>
       </section>
-
       <!-- Podio + Ranking Top 10 -->
       <div class="grid grid-cols-12 gap-8 mb-12">
         <!-- Podio Section -->
@@ -804,7 +682,6 @@
               280 pts
             </div>
           </div>
-
           <!-- Primer Lugar (Campeón) -->
           <div class="glass-strong card-interactive rounded-3xl p-10 text-center relative pulse-champion fade-in-1" style="min-height: 450px; transform: scale(1.1); display: flex; flex-direction: column; justify-content: center;">
             <div class="champion-ribbon">⭐ CAMPEÓN</div>
@@ -814,12 +691,11 @@
               </div>
             </div>
             <h2 class="text-3xl font-black mb-2">YADHIRA YULEISI PUENTE AQUINO</h2>
-            <p class="text-yellow-300 text-base mb-6 font-bold">Campeón del Ciclo</p>
+            <p class="text-yellow-300 text-base mb-6 font-bold">Primer Lugar</p>
             <div class="medal-gold rounded-xl py-4 px-8 inline-block font-black text-3xl shadow-2xl">
               310 pts
             </div>
           </div>
-
           <!-- Tercer Lugar -->
           <div class="glass card-interactive rounded-3xl p-8 text-center float-fast fade-in-3" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
             <div class="inline-block mb-4">
@@ -834,7 +710,6 @@
             </div>
           </div>
         </div>
-
         <!-- Ranking Top 10 Compacto -->
         <div class="col-span-4 glass-strong rounded-3xl p-6 card-interactive fade-in-5" id="ranking-section">
           <div class="flex items-center justify-between mb-4">
@@ -852,7 +727,6 @@
           </div>
         </div>
       </div>
-
       <!-- Sección de Pestañas -->
       <section class="mb-12">
         <!-- Barra de Navegación de Pestañas -->
@@ -861,7 +735,6 @@
           <div class="tab-button" data-tab="by-date">Detallado por Fecha</div>
           <div class="tab-button" data-tab="by-agent">Detallado por Agente</div>
         </div>
-
         <!-- Contenido de la Pestaña General -->
         <div id="tab-general" class="tab-content active">
           <div class="glass-strong rounded-3xl p-6">
@@ -878,7 +751,6 @@
             <div id="general-ranking-list" class="space-y-2 mb-4">
               <!-- Lista paginada -->
             </div>
-
             <div class="pagination">
               <button id="prev-page" class="pagination-btn" disabled>← Anterior</button>
               <span class="page-info" id="page-info">Página 1 de 1</span>
@@ -886,7 +758,6 @@
             </div>
           </div>
         </div>
-
         <!-- Contenido de la Pestaña Por Fecha -->
         <div id="tab-by-date" class="tab-content">
           <div class="glass-strong rounded-3xl p-6">
@@ -905,7 +776,6 @@
             </div>
           </div>
         </div>
-
         <!-- Contenido de la Pestaña Por Agente -->
         <div id="tab-by-agent" class="tab-content">
           <div class="glass-strong rounded-3xl p-6">
@@ -925,22 +795,18 @@
           </div>
         </div>
       </section>
-
       <!-- Footer -->
       <footer class="text-center pt-8 border-t fade-in" style="border-color: rgba(255, 255, 255, 0.05);">
         <div class="flex items-center justify-center gap-3 text-sm" style="opacity: 0.6;">
           <i data-lucide="clock" class="w-4 h-4"></i>
           <p>Última actualización: <span id="last-updated" class="font-semibold" style="opacity: 0.8;">Cargando...</span></p>
         </div>
-        <p class="text-xs mt-2" style="opacity: 0.4;">Sistema de Gestión de Desempeño v2.0</p>
+        <p class="text-xs mt-2" style="opacity: 0.4;">Sistema de Gestión de Desempeño v2.0 | Desarrollado por Michi Métricas 😺</p>
       </footer>
-
     </div>
   </div>
-
   <script>
     const API_URL = "https://script.google.com/macros/s/AKfycbz6ja1O0AwvYBVfIn4ik9Q5VBp_Lj7P1qWMG9xIFuFSiCe8RDFrl7fqYH8IgDGCXys/exec";
-
     let allRankingData = [];
     let dateRankingData = [];
     let agentDetailsData = [];
@@ -952,21 +818,16 @@
     const themeIcon = document.getElementById('themeIcon');
     const themeText = document.getElementById('themeText');
     const body = document.body;
-
-    // Load saved theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     body.className = savedTheme + '-mode';
     updateThemeButton(savedTheme);
-
     themeToggle.addEventListener('click', () => {
       const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      
       body.className = newTheme + '-mode';
       localStorage.setItem('theme', newTheme);
       updateThemeButton(newTheme);
     });
-
     function updateThemeButton(theme) {
       if (theme === 'dark') {
         themeIcon.setAttribute('data-lucide', 'sun');
@@ -996,6 +857,30 @@
       return list.filter(item => item[nameProperty].toLowerCase().includes(term));
     }
 
+    // === NUEVA FUNCIÓN: ACTUALIZAR KPIs ===
+    function updateKPIs() {
+      const totalAgents = allRankingData.length;
+      if (totalAgents === 0) return;
+
+      // 1. Promedio de campaña
+      const totalPoints = allRankingData.reduce((sum, a) => sum + a.points, 0);
+      const promedio = totalPoints / totalAgents;
+      document.getElementById('kpi-promedio').textContent = Math.round(promedio);
+
+      // 2. % Excelencia: agentes con ≥900 puntos
+      const excelenciaCount = allRankingData.filter(a => a.points >= 900).length;
+      const pctExcelencia = totalAgents ? (excelenciaCount / totalAgents * 100).toFixed(0) : 0;
+      document.getElementById('kpi-excelencia').textContent = `${pctExcelencia}%`;
+
+      // 3. En Riesgo: < 150 puntos
+      const riesgoCount = allRankingData.filter(a => a.points < 150).length;
+      document.getElementById('kpi-riesgo').textContent = riesgoCount;
+
+      // 4. Bajo Levantadas: Aprobadas === 0
+      const bajoLevantadas = agentDetailsData.filter(a => a.Aprobadas === 0).length;
+      document.getElementById('kpi-bajo').textContent = bajoLevantadas;
+    }
+
     // Función para renderizar ranking general con búsqueda y paginación
     function renderGeneralRankingPage(page, searchTerm = '') {
       const filteredData = filterTable(allRankingData, searchTerm);
@@ -1003,7 +888,6 @@
       const end = start + ITEMS_PER_PAGE;
       const pageData = filteredData.slice(start, end);
       const maxPoints = allRankingData[0]?.points || 100;
-
       const html = pageData.map((p, idx) => {
         const globalRank = start + idx + 1;
         const width = Math.min(100, (p.points / maxPoints) * 100);
@@ -1011,7 +895,6 @@
         if (globalRank === 1) badgeClass = "bg-yellow-500/20 text-yellow-400";
         else if (globalRank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
         else if (globalRank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
-
         return `
           <div class="general-ranking-item rounded-lg transition-all duration-200">
             <div class="flex items-center gap-3">
@@ -1025,18 +908,16 @@
           </div>
         `;
       }).join('');
-
       document.getElementById("general-ranking-list").innerHTML = html || `<div class="text-center py-6" style="opacity: 0.6;">No hay datos</div>`;
       lucide.createIcons();
 
-      // Actualizar paginación
       const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
       document.getElementById("page-info").textContent = `Página ${currentPage} de ${totalPages}`;
       document.getElementById("prev-page").disabled = currentPage === 1;
       document.getElementById("next-page").disabled = currentPage >= totalPages;
     }
 
-    // Función para renderizar tabla por fecha con búsqueda
+    // Función para renderizar tabla por fecha
     function renderDateTable(dates, searchTerm = '') {
       const filteredData = filterTable(dateRankingData, searchTerm);
       let theadHtml = `<tr><th>Agente</th>`;
@@ -1045,7 +926,6 @@
         theadHtml += `<th class="date-header">${formattedDate}</th>`;
       });
       theadHtml += `</tr>`;
-
       let tbodyHtml = '';
       filteredData.forEach(agent => {
         let rowHtml = `<tr><td class="agent-name">${agent.name}</td>`;
@@ -1056,83 +936,50 @@
         rowHtml += `</tr>`;
         tbodyHtml += rowHtml;
       });
-
-      const tableHtml = `
-        <table class="data-table">
-          <thead>${theadHtml}</thead>
-          <tbody>${tbodyHtml}</tbody>
-        </table>
-      `;
+      const tableHtml = `<table class="data-table"><thead>${theadHtml}</thead><tbody>${tbodyHtml}</tbody></table>`;
       document.getElementById("date-ranking-table-container").innerHTML = tableHtml;
       lucide.createIcons();
     }
 
-    // Función para renderizar tabla por agente con búsqueda
+    // Función para renderizar tabla por agente
     function renderAgentDetailsTable(searchTerm = '') {
       const filteredData = filterTable(agentDetailsData, searchTerm);
-      let theadHtml = `<tr>
-        <th>NOMBRE_COMPLETO</th>
-        <th>Aprobadas</th>
-        <th>Q_Arpu_Mayor_8</th>
-        <th>Puntos_dia</th>
-        <th>Puntos_Adicionales</th>
-      </tr>`;
-
+      let theadHtml = `<tr><th>NOMBRE_COMPLETO</th><th>Aprobadas</th><th>Q_Arpu_Mayor_8</th><th>Puntos_dia</th><th>Puntos_Adicionales</th></tr>`;
       let tbodyHtml = '';
       filteredData.forEach(agent => {
-        tbodyHtml += `<tr>
-          <td class="agent-name">${agent.name}</td>
-          <td class="points-cell">${Math.round(agent.Aprobadas)}</td>
-          <td class="points-cell">${Math.round(agent.Q_Arpu_Mayor_8)}</td>
-          <td class="points-cell">${Math.round(agent.Puntos_dia)}</td>
-          <td class="points-cell">${Math.round(agent.Puntos_Adicionales)}</td>
-        </tr>`;
+        tbodyHtml += `<tr><td class="agent-name">${agent.name}</td><td class="points-cell">${Math.round(agent.Aprobadas)}</td><td class="points-cell">${Math.round(agent.Q_Arpu_Mayor_8)}</td><td class="points-cell">${Math.round(agent.Puntos_dia)}</td><td class="points-cell">${Math.round(agent.Puntos_Adicionales)}</td></tr>`;
       });
-
-      const tableHtml = `
-        <table class="data-table">
-          <thead>${theadHtml}</thead>
-          <tbody>${tbodyHtml}</tbody>
-        </table>
-      `;
+      const tableHtml = `<table class="data-table"><thead>${theadHtml}</thead><tbody>${tbodyHtml}</tbody></table>`;
       document.getElementById("agent-details-table-container").innerHTML = tableHtml;
       lucide.createIcons();
     }
 
-    // Funciones de actualización
     function updateGeneralTotal() {
       document.getElementById("general-total").textContent = `${allRankingData.length} colaboradores`;
     }
-
     function updateDateTotal(numDates) {
       document.getElementById("by-date-total").textContent = `${numDates} fechas registradas`;
     }
-
     function updateAgentTotal() {
       document.getElementById("by-agent-total").textContent = `${agentDetailsData.length} agentes registrados`;
     }
 
-    // Función para inicializar eventos de búsqueda
     function initSearch() {
       document.getElementById('search-general').addEventListener('input', (e) => {
         currentPage = 1;
         renderGeneralRankingPage(currentPage, e.target.value);
       });
-
       document.getElementById('search-by-date').addEventListener('input', (e) => {
         renderDateTable(sortedDatesCache, e.target.value);
       });
-
       document.getElementById('search-by-agent').addEventListener('input', (e) => {
         renderAgentDetailsTable(e.target.value);
       });
     }
 
-    // Función para inicializar pestañas
     function initTabNavigation() {
       const tabButtons = document.querySelectorAll('.tab-button');
       const tabContents = document.querySelectorAll('.tab-content');
-
       tabButtons.forEach(button => {
         button.addEventListener('click', () => {
           const tabId = button.getAttribute('data-tab');
@@ -1144,7 +991,6 @@
       });
     }
 
-    // Función para actualizar última actualización
     function updateLastUpdated() {
       const now = new Date().toLocaleString('es-ES', {
         day: 'numeric',
@@ -1156,10 +1002,8 @@
       document.getElementById("last-updated").textContent = now;
     }
 
-    // Cache para fechas ordenadas
     let sortedDatesCache = [];
 
-    // Función principal para cargar datos
     async function fetchAllRanking() {
       try {
         const res = await fetch(API_URL);
@@ -1172,9 +1016,7 @@
         for (const row of data) {
           const name = row.NOMBRE_COMPLETO || "Sin nombre";
           const points = parseFloat(row.Puntos_Total) || 0;
-          if (!groupedByAgent[name]) {
-            groupedByAgent[name] = { name, points: 0 };
-          }
+          if (!groupedByAgent[name]) groupedByAgent[name] = { name, points: 0 };
           groupedByAgent[name].points += points;
         }
         allRankingData = Object.values(groupedByAgent).sort((a, b) => b.points - a.points);
@@ -1185,13 +1027,8 @@
           const name = row.NOMBRE_COMPLETO || "Sin nombre";
           const date = row.Fecha || "Sin Fecha";
           const points = parseFloat(row.Puntos_Total) || 0;
-          if (!groupedByDate[name]) {
-            groupedByDate[name] = { name, dates: {} };
-          }
-          if (!groupedByDate[name].dates[date]) {
-            groupedByDate[name].dates[date] = 0;
-          }
-          groupedByDate[name].dates[date] += points;
+          if (!groupedByDate[name]) groupedByDate[name] = { name, dates: {} };
+          groupedByDate[name].dates[date] = (groupedByDate[name].dates[date] || 0) + points;
         }
         dateRankingData = Object.values(groupedByDate);
 
@@ -1203,15 +1040,8 @@
           const qArpu = parseFloat(row.Q_Arpu_Mayor_8) || 0;
           const puntosDia = parseFloat(row.Puntos_dia) || 0;
           const puntosAdicionales = parseFloat(row.Puntos_Adicionales) || 0;
-
           if (!groupedByAgentDetails[name]) {
-            groupedByAgentDetails[name] = {
-              name,
-              Aprobadas: 0,
-              Q_Arpu_Mayor_8: 0,
-              Puntos_dia: 0,
-              Puntos_Adicionales: 0
-            };
+            groupedByAgentDetails[name] = { name, Aprobadas: 0, Q_Arpu_Mayor_8: 0, Puntos_dia: 0, Puntos_Adicionales: 0 };
           }
           groupedByAgentDetails[name].Aprobadas += aprobadas;
           groupedByAgentDetails[name].Q_Arpu_Mayor_8 += qArpu;
@@ -1220,12 +1050,9 @@
         }
         agentDetailsData = Object.values(groupedByAgentDetails);
 
-        // Obtener y ordenar fechas
         const allDates = new Set();
         for (const agent of dateRankingData) {
-          for (const date in agent.dates) {
-            allDates.add(date);
-          }
+          for (const date in agent.dates) allDates.add(date);
         }
         sortedDatesCache = Array.from(allDates).sort((a, b) => new Date(a) - new Date(b));
 
@@ -1235,6 +1062,10 @@
         renderGeneralRankingPage(1);
         renderDateTable(sortedDatesCache);
         renderAgentDetailsTable();
+
+        // 👇 ACTUALIZAR LOS KPIs con datos reales
+        updateKPIs();
+
         updateGeneralTotal();
         updateDateTotal(sortedDatesCache.length);
         updateAgentTotal();
@@ -1253,13 +1084,11 @@
       }
     }
 
-    // Funciones de renderizado
     function renderPodium(ranking) {
       if (!ranking || ranking.length === 0) return;
       const champion = ranking[0] || { name: "—", points: 0 };
       const second = ranking[1] || { name: "—", points: 0 };
       const third = ranking[2] || { name: "—", points: 0 };
-
       const podiumHtml = `
         <div class="glass card-interactive rounded-3xl p-8 text-center float-medium fade-in-2" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
           <div class="inline-block mb-4">
@@ -1273,7 +1102,6 @@
             ${Math.round(second.points)} pts
           </div>
         </div>
-
         <div class="glass-strong card-interactive rounded-3xl p-10 text-center relative pulse-champion fade-in-1" style="min-height: 450px; transform: scale(1.1); display: flex; flex-direction: column; justify-content: center;">
           <div class="champion-ribbon">⭐ CAMPEÓN</div>
           <div class="inline-block mb-4">
@@ -1287,7 +1115,6 @@
             ${Math.round(champion.points)} pts
           </div>
         </div>
-
         <div class="glass card-interactive rounded-3xl p-8 text-center float-fast fade-in-3" style="min-height: 380px; display: flex; flex-direction: column; justify-content: center;">
           <div class="inline-block mb-4">
             <div class="w-20 h-20 rounded-full medal-bronze flex items-center justify-center mx-auto">
@@ -1313,7 +1140,6 @@
         if (rank === 1) badgeClass = "bg-yellow-500/20 text-yellow-400";
         else if (rank === 2) badgeClass = "bg-slate-300/20 text-slate-300";
         else if (rank === 3) badgeClass = "bg-orange-500/20 text-orange-400";
-
         return `
           <div class="compact-ranking-item rounded-lg transition-all duration-200">
             <div class="flex items-center gap-3">
@@ -1324,13 +1150,11 @@
           </div>
         `;
       }).join('');
-
       document.getElementById("ranking-list").innerHTML = html;
       document.getElementById("total-participants").innerHTML = `<i data-lucide="users" class="w-4 h-4 inline mr-1"></i>${total} participantes`;
       lucide.createIcons();
     }
 
-    // Eventos de paginación
     document.getElementById("prev-page").addEventListener("click", () => {
       if (currentPage > 1) {
         currentPage--;
@@ -1349,7 +1173,6 @@
       }
     });
 
-    // Inicialización
     async function init() {
       await fetchAllRanking();
       setInterval(async () => {
